@@ -10,8 +10,8 @@
 
 package org.junit.platform.engine.discovery;
 
-import static java.util.stream.Collectors.toList;
 import static org.junit.platform.commons.meta.API.Usage.Experimental;
+import static org.junit.platform.commons.util.JUnitCollectors.toUnmodifiableList;
 
 import java.io.File;
 import java.io.IOException;
@@ -207,7 +207,8 @@ public final class DiscoverySelectors {
 				.filter(Files::exists)
 				.map(Path::toUri)
 				.map(ClasspathRootSelector::new)
-				.collect(toList());
+				// unmodifiable since selectClasspathRoots is a public, non-internal method
+				.collect(toUnmodifiableList());
 		// @formatter:on
 	}
 
@@ -312,7 +313,7 @@ public final class DiscoverySelectors {
 
 		Matcher matcher = fullyQualifiedMethodNamePattern.matcher(fullyQualifiedMethodName);
 		Preconditions.condition(matcher.matches(),
-			"fullyQualifiedMethodName is not a valid fully qualified method name");
+			fullyQualifiedMethodName + " is not a valid fully qualified method name");
 
 		String className = matcher.group(1);
 		String methodName = matcher.group(2);

@@ -8,31 +8,23 @@
  * http://www.eclipse.org/legal/epl-v10.html
  */
 
-package org.junit.platform.console.tasks;
+package org.junit.jupiter.engine.discovery.predicates;
 
 import static org.junit.platform.commons.meta.API.Usage.Internal;
 
-import java.io.PrintWriter;
-
+import org.junit.jupiter.api.TestTemplate;
 import org.junit.platform.commons.meta.API;
-import org.junit.platform.console.options.CommandLineOptionsParser;
 
 /**
- * @since 1.0
+ * Test if a method is a JUnit Jupiter test template method.
+ *
+ * @since 5.0
  */
 @API(Internal)
-public class DisplayHelpTask implements ConsoleTask {
+public class IsTestTemplateMethod extends IsTestableMethod {
 
-	private final CommandLineOptionsParser parser;
-
-	public DisplayHelpTask(CommandLineOptionsParser parser) {
-		this.parser = parser;
-	}
-
-	@Override
-	public int execute(PrintWriter out) {
-		parser.printHelp(out);
-		return SUCCESS;
+	public IsTestTemplateMethod() {
+		super(TestTemplate.class);
 	}
 
 }

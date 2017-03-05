@@ -65,7 +65,8 @@ public class DemoHierarchicalTestDescriptor extends AbstractTestDescriptor imple
 	}
 
 	@Override
-	public DemoEngineExecutionContext execute(DemoEngineExecutionContext context) {
+	public DemoEngineExecutionContext execute(DemoEngineExecutionContext context,
+			DynamicTestExecutor dynamicTestExecutor) {
 		if (this.executeBlock != null) {
 			this.executeBlock.run();
 		}

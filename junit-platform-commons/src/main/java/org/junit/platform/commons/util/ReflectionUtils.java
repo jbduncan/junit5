@@ -13,6 +13,7 @@ package org.junit.platform.commons.util;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 import static org.junit.platform.commons.meta.API.Usage.Internal;
+import static org.junit.platform.commons.util.JUnitCollectors.toUnmodifiableList;
 
 import java.io.File;
 import java.lang.reflect.AccessibleObject;
@@ -52,7 +53,11 @@ import org.junit.platform.commons.meta.API;
  * itself. <strong>Any usage by external parties is not supported.</strong>
  * Use at your own risk!
  *
+ * <p>Some utilities are published via the maintained {@code ReflectionSupport}
+ * class.
+ *
  * @since 1.0
+ * @see org.junit.platform.commons.support.ReflectionSupport
  */
 @API(Internal)
 public final class ReflectionUtils {
@@ -464,14 +469,24 @@ public final class ReflectionUtils {
 		return findAllClassesInClasspathRoot(root.toUri(), classTester, classNameFilter);
 	}
 
+	/**
+	 * @see org.junit.platform.commons.support.ReflectionSupport#findAllClassesInClasspathRoot(URI, Predicate, Predicate)
+	 */
 	public static List<Class<?>> findAllClassesInClasspathRoot(URI root, Predicate<Class<?>> classTester,
 			Predicate<String> classNameFilter) {
-		return classpathScanner.scanForClassesInClasspathRoot(root, classTester, classNameFilter);
+		// unmodifiable since returned by public, non-internal method(s)
+		return Collections.unmodifiableList(
+			classpathScanner.scanForClassesInClasspathRoot(root, classTester, classNameFilter));
 	}
 
+	/**
+	 * @see org.junit.platform.commons.support.ReflectionSupport#findAllClassesInPackage(String, Predicate, Predicate)
+	 */
 	public static List<Class<?>> findAllClassesInPackage(String basePackageName, Predicate<Class<?>> classTester,
 			Predicate<String> classNameFilter) {
-		return classpathScanner.scanForClassesInPackage(basePackageName, classTester, classNameFilter);
+		// unmodifiable since returned by public, non-internal method(s)
+		return Collections.unmodifiableList(
+			classpathScanner.scanForClassesInPackage(basePackageName, classTester, classNameFilter));
 	}
 
 	public static List<Class<?>> findNestedClasses(Class<?> clazz, Predicate<Class<?>> predicate) {
@@ -554,6 +569,9 @@ public final class ReflectionUtils {
 		return findMethods(clazz, predicate, MethodSortOrder.HierarchyDown);
 	}
 
+	/**
+	 * @see org.junit.platform.commons.support.ReflectionSupport#findMethods(Class, Predicate, org.junit.platform.commons.support.MethodSortOrder)
+	 */
 	public static List<Method> findMethods(Class<?> clazz, Predicate<Method> predicate, MethodSortOrder sortOrder) {
 		Preconditions.notNull(clazz, "Class must not be null");
 		Preconditions.notNull(predicate, "predicate must not be null");
@@ -562,7 +580,8 @@ public final class ReflectionUtils {
 		// @formatter:off
 		return findAllMethodsInHierarchy(clazz, sortOrder).stream()
 				.filter(predicate)
-				.collect(toList());
+				// unmodifiable since returned from public, non-internal method(s)
+				.collect(toUnmodifiableList());
 		// @formatter:on
 	}
 
@@ -575,17 +594,11 @@ public final class ReflectionUtils {
 
 		// @formatter:off
 		List<Method> localMethods = Arrays.stream(clazz.getDeclaredMethods())
-				.filter(method -> !method.isBridge()) // [#333] don't collect bridge methods
+				.filter(method -> !method.isSynthetic())
 				.collect(toList());
-		// @formatter:on
-
-		// @formatter:off
 		List<Method> superclassMethods = getSuperclassMethods(clazz, sortOrder).stream()
 				.filter(method -> !isMethodShadowedByLocalMethods(method, localMethods))
 				.collect(toList());
-		// @formatter:on
-
-		// @formatter:off
 		List<Method> interfaceMethods = getInterfaceMethods(clazz, sortOrder).stream()
 				.filter(method -> !isMethodShadowedByLocalMethods(method, localMethods))
 				.collect(toList());
