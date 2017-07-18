@@ -95,7 +95,12 @@ class TestRun {
 		}
 		// @formatter:off
 		return descriptors.stream()
-				.filter(testDescriptor -> description == testDescriptor.getDescription())
+				.filter(testDescriptor -> {
+					// @marcphillip: why are Descriptions compared by equality?
+					@SuppressWarnings("ReferenceEquality")
+					boolean result = (description == testDescriptor.getDescription());
+					return result;
+				})
 				.findFirst();
 		// @formatter:on
 	}
