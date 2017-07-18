@@ -10,6 +10,7 @@ buildscript {
 	dependencies {
 		classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.4.1'
 		classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
+		classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.11"
 		classpath 'org.ajoberstar:gradle-git:1.7.2'
 		classpath 'org.ajoberstar:gradle-git-publish:0.2.1'
 		classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-SNAPSHOT'
@@ -97,6 +98,7 @@ allprojects { subproj ->
 	apply plugin: 'eclipse'
 	apply plugin: 'idea'
 	apply plugin: 'com.diffplug.gradle.spotless'
+	apply plugin: 'net.ltgt.errorprone'
 	apply plugin: 'checkstyle'
 	apply plugin: 'com.github.ben-manes.versions' // gradle dependencyUpdates
 	apply from: "$rootDir/gradle/degraph.gradle"
@@ -403,6 +405,23 @@ subprojects { subproj ->
 				'Implementation-Vendor': 'junit.org'
 			)
 		}
+	}
+
+	// @sbrannen, @marcphillip: Each new release of error-prone brings with it new types of checks.
+	// I think it's possible to explicitly tell error-prone _which_ checks we want to enable and
+	// disable, similarly to how we specify "xlint" flags for the sorts of javac checks that we want
+	// to enable/disable.
+	// Do we want this for error-prone? Or are we happy to just accept the new default checks that
+	// each new release of error-prone brings?
+	//
+	// Also, there are two opt-in checks called
+	// Var (http://errorprone.info/bugpattern/Var) and
+	// Immutable (http://errorprone.info/bugpattern/Immutable).
+	// Would you like me to turn on these checks and find places where their corresponding
+	// annotations could be used?
+	dependencies {
+		errorprone('com.google.errorprone:error_prone_core:2.0.21')
+		compileOnly('com.google.errorprone:error_prone_annotations:2.0.21')
 	}
 
 	spotless {

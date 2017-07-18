@@ -16,6 +16,8 @@ import static org.junit.jupiter.api.AssertionTestUtils.assertMessageStartsWith;
 import static org.junit.jupiter.api.AssertionTestUtils.expectAssertionFailedError;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
+import java.util.Arrays;
+
 import org.opentest4j.AssertionFailedError;
 
 /**
@@ -1874,8 +1876,11 @@ class AssertionsAssertArrayEqualsTests {
 			expectAssertionFailedError();
 		}
 		catch (AssertionFailedError ex) {
-			assertMessageEquals(ex,
-				"array contents differ at index [3][0][1][0], expected: <5> but was: <" + differentElement + ">");
+
+			assertMessageEquals(ex, "array contents differ at index [3][0][1][0], expected: <5> but was: <"
+					// Do we want to display the default array str repr
+					// e.g. [I@3343c8b, or a list-like repr e.g. [1, 2, 3]?
+					+ Arrays.toString(differentElement) + ">");
 		}
 	}
 

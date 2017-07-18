@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("SelfComparison") // self comparison used purely for demonstrative purposes
 // tag::user_guide[]
 public interface ComparableContract<T extends Comparable<T>> extends Testable<T> {
 

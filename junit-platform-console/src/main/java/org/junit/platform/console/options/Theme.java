@@ -71,6 +71,8 @@ public enum Theme {
 		return ASCII;
 	}
 
+	// tiles is only ever held by the current enum instance and is never mutated
+	@SuppressWarnings("ImmutableEnumChecker")
 	private final String[] tiles;
 	private final String blank;
 
