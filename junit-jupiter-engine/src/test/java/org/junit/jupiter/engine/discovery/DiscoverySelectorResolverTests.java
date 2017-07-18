@@ -369,13 +369,14 @@ class DiscoverySelectorResolverTests {
 		resolver.resolveSelectors(request().selectors(selectPackage("")).build(), engineDescriptor);
 
 		// 150 is completely arbitrary. The actual number is likely much higher.
-		assertThat(engineDescriptor.getDescendants().size()).isGreaterThan(150).as(
-			"Too few test descriptors in classpath");
+		assertThat(engineDescriptor.getDescendants().size()) //
+				.as("Too few test descriptors in classpath") //
+				.isGreaterThan(150);
 
 		List<UniqueId> uniqueIds = uniqueIds();
-		assertThat(uniqueIds).contains(
-			uniqueIdForClass(ReflectionUtils.loadClass("DefaultPackageTestCase").get())).describedAs(
-				"Failed to pick up DefaultPackageTestCase via classpath scanning");
+		assertThat(uniqueIds) //
+				.describedAs("Failed to pick up DefaultPackageTestCase via classpath scanning") //
+				.contains(uniqueIdForClass(ReflectionUtils.loadClass("DefaultPackageTestCase").get()));
 		assertThat(uniqueIds).contains(uniqueIdForClass(Class1WithTestCases.class));
 		assertThat(uniqueIds).contains(uniqueIdForMethod(Class1WithTestCases.class, "test1()"));
 		assertThat(uniqueIds).contains(uniqueIdForClass(Class2WithTestCases.class));
@@ -392,8 +393,9 @@ class DiscoverySelectorResolverTests {
 		resolver.resolveSelectors(request().selectors(selectors).build(), engineDescriptor);
 
 		// 150 is completely arbitrary. The actual number is likely much higher.
-		assertThat(engineDescriptor.getDescendants().size()).isGreaterThan(150).as(
-			"Too few test descriptors in classpath");
+		assertThat(engineDescriptor.getDescendants().size()) //
+				.as("Too few test descriptors in classpath") //
+				.isGreaterThan(150);
 
 		List<UniqueId> uniqueIds = uniqueIds();
 		assertTrue(uniqueIds().contains(uniqueIdForClass(ReflectionUtils.loadClass("DefaultPackageTestCase").get())),
@@ -618,6 +620,7 @@ class TestCaseWithNesting {
 	}
 
 	@Nested
+	@SuppressWarnings("ClassCanBeStatic") // purposely non-static for testing purposes
 	class NestedTestCase {
 
 		@Test

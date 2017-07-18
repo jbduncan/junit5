@@ -1877,10 +1877,11 @@ class AssertionsAssertArrayEqualsTests {
 		}
 		catch (AssertionFailedError ex) {
 
-			assertMessageEquals(ex, "array contents differ at index [3][0][1][0], expected: <5> but was: <"
-					// Do we want to display the default array str repr
-					// e.g. [I@3343c8b, or a list-like repr e.g. [1, 2, 3]?
-					+ Arrays.toString(differentElement) + ">");
+			assertMessageEquals(ex,
+				"array contents differ at index [3][0][1][0], expected: <5> but was: <"
+						// Do we want to display the default array str repr
+						// e.g. [I@3343c8b, or a list-like repr e.g. [1, 2, 3]?
+						+ Arrays.toString(differentElement) + ">");
 		}
 	}
 

@@ -50,7 +50,8 @@ class IsNestedTestClassTests {
 
 }
 
-//class name must not end with 'Tests', otherwise it would be picked up by the suite
+// Class name must not end with 'Tests', otherwise it would be picked up by the suite
+@SuppressWarnings("ClassCanBeStatic") // inner classes purposely non-static for testing purposes
 class ClassWithNestedInnerClasses {
 
 	@Nested
