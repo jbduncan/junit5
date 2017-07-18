@@ -74,6 +74,7 @@ class ClassWithTestCases {
 class ClassWithNestedTestCases {
 
 	@Nested
+	@SuppressWarnings("ClassCanBeStatic") // purposely non-static for testing purposes
 	class InnerClass {
 
 		@Test
