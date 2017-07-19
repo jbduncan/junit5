@@ -59,7 +59,6 @@ class IsScannableTestClassTests {
 		assertTrue(isScannableTestClass.test(ClassWithNestedTestCases.class));
 	}
 
-	@SuppressWarnings("ClassCanBeStatic") // purposely non-static for testing purposes
 	private class PrivateClassWithTestFactory {
 
 		@TestFactory
@@ -69,7 +68,6 @@ class IsScannableTestClassTests {
 
 	}
 
-	@SuppressWarnings("ClassCanBeStatic") // purposely non-static for testing purposes
 	private class PrivateClassWithTestCases {
 
 		@Test
@@ -82,7 +80,6 @@ class IsScannableTestClassTests {
 
 	}
 
-	@SuppressWarnings("ClassCanBeStatic") // purposely non-static for testing purposes
 	private class PrivateClassWithNestedTestCases {
 
 		@Nested

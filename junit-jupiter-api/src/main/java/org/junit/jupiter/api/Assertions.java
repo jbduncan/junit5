@@ -54,7 +54,7 @@ public final class Assertions {
 	 * <p>See Javadoc for {@link #fail(String, Throwable)} for an explanation of
 	 * this method's generic return type {@code V}.
 	 */
-	// we purposely return a V that has nothing to do with the parameters of this method. See
+	// we purposely return a V that has nothing to do with the parameters of this method; see
 	// the javadoc for details.
 	@SuppressWarnings("TypeParameterUnusedInFormals")
 	public static <V> V fail(String message) {
@@ -77,7 +77,7 @@ public final class Assertions {
 	 * Stream.of().map(entry -> fail("should not be called"));
 	 * }</pre>
 	 */
-	// we purposely return a V that has nothing to do with the parameters of this method. See
+	// we purposely return a V that has nothing to do with the parameters of this method; see
 	// the javadoc for details.
 	@SuppressWarnings("TypeParameterUnusedInFormals")
 	public static <V> V fail(String message, Throwable cause) {
@@ -91,7 +91,7 @@ public final class Assertions {
 	 * <p>See Javadoc for {@link #fail(String, Throwable)} for an explanation of
 	 * this method's generic return type {@code V}.
 	 */
-	// we purposely return a V that has nothing to do with the parameters of this method. See
+	// we purposely return a V that has nothing to do with the parameters of this method; see
 	// the javadoc for details.
 	@SuppressWarnings("TypeParameterUnusedInFormals")
 	public static <V> V fail(Throwable cause) {
@@ -106,7 +106,7 @@ public final class Assertions {
 	 * <p>See Javadoc for {@link #fail(String, Throwable)} for an explanation of
 	 * this method's generic return type {@code V}.
 	 */
-	// we purposely return a V that has nothing to do with the parameters of this method. See
+	// we purposely return a V that has nothing to do with the parameters of this method; see
 	// the javadoc for details.
 	@SuppressWarnings("TypeParameterUnusedInFormals")
 	public static <V> V fail(Supplier<String> messageSupplier) {

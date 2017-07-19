@@ -107,6 +107,7 @@ allprojects { subproj ->
 		// mavenLocal()
 		mavenCentral()
 		maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+		maven { url 'https://jitpack.io' }
 	}
 
 	tasks.withType(Test) { task ->
@@ -415,8 +416,16 @@ subprojects { subproj ->
 	// Would you like me to turn on these checks and find places where their corresponding
 	// annotations could be used?
 	dependencies {
-		errorprone('com.google.errorprone:error_prone_core:2.0.21')
+		errorprone('com.github.google:error-prone:05869dbbb6')
 		compileOnly('com.google.errorprone:error_prone_annotations:2.0.21')
+		// TODO: Replace the errorprone dependency above with the one in
+		// comment below when error-prone 2.0.22 is out.
+		// errorprone('com.google.errorprone:error_prone_core:2.0.22')
+	}
+	compileTestJava {
+		options.compilerArgs += [
+			'-Xep:ClassCanBeStatic:OFF' // many nested test classes are non-static for testing reasons
+		]
 	}
 
 	spotless {

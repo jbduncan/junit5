@@ -72,7 +72,7 @@ public class VintageDiscoverer {
 			new PackageNameSelectorResolver(classNamePredicate), //
 			new ClassSelectorResolver(), //
 			new MethodSelectorResolver(), //
-			new UniqueIdSelectorResolver(logger)//
+			new UniqueIdSelectorResolver(logger) //
 		);
 	}
 
