@@ -408,29 +408,30 @@ subprojects { subproj ->
 		}
 	}
 
-	// @sbrannen, @marcphillip: Each new release of error-prone brings with it new types of checks.
-	// I think it's possible to explicitly tell error-prone _which_ checks we want to enable and
-	// disable, similarly to how we specify "xlint" flags for the sorts of javac checks that we want
-	// to enable/disable.
-	// Do we want this for error-prone? Or are we happy to just accept the new default checks that
-	// each new release of error-prone brings?
+	// @sbrannen, @marcphillip:
+	// Each new release of error-prone brings with it new default checks.
+	// It seems possible to explicitly tell error-prone _which_ checks we want to enable and
+	// disable, similarly to how we specify "-Xlint" flags above.
+	// Do we want to customise exactly which checks error-prone should run? Or are we happy to just
+	// accept the default checks that each new release brings?
 	//
 	// Also, there are two opt-in checks called
 	// Var (http://errorprone.info/bugpattern/Var) and
 	// Immutable (http://errorprone.info/bugpattern/Immutable).
 	// Would you like me to turn on these checks and find places where their corresponding
 	// annotations could be used?
-	dependencies {
-		errorprone('com.github.google:error-prone:05869dbbb6')
-		compileOnly('com.google.errorprone:error_prone_annotations:2.0.21')
-		// TODO: Replace the errorprone dependency above with the one in
-		// comment below when error-prone 2.0.22 is out.
-		// errorprone('com.google.errorprone:error_prone_core:2.0.22')
-	}
-	compileTestJava {
-		options.compilerArgs += [
-			'-Xep:ClassCanBeStatic:OFF' // many nested test classes are non-static for testing reasons
-		]
+	if (org.gradle.api.JavaVersion.current() == org.gradle.api.JavaVersion.VERSION_1_8) {
+		dependencies {
+			// TODO: Replace the errorprone dependency with 2.0.22 when it is out.
+			// errorprone('com.google.errorprone:error_prone_core:2.0.22')
+			errorprone('com.github.google:error-prone:05869dbbb6')
+			compileOnly('com.google.errorprone:error_prone_annotations:2.0.21')
+		}
+		compileTestJava {
+			options.compilerArgs += [
+				'-Xep:ClassCanBeStatic:OFF' // many nested test classes are non-static for testing reasons
+			]
+		}
 	}
 
 	spotless {
