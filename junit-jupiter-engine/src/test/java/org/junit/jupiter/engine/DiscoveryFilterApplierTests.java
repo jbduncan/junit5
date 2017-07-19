@@ -170,7 +170,6 @@ class DiscoveryFilterApplierTests {
 
 	private static class MatchingClass {
 		@Nested
-		@SuppressWarnings("ClassCanBeStatic") // purposely non-static for testing purposes
 		class NestedClass {
 		}
 	}

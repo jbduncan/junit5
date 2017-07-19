@@ -621,7 +621,6 @@ class TestCaseWithNesting {
 	}
 
 	@Nested
-	@SuppressWarnings("ClassCanBeStatic") // purposely non-static for testing purposes
 	class NestedTestCase {
 
 		@Test
