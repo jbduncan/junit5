@@ -98,7 +98,9 @@ allprojects { subproj ->
 	apply plugin: 'eclipse'
 	apply plugin: 'idea'
 	apply plugin: 'com.diffplug.gradle.spotless'
-	apply plugin: 'net.ltgt.errorprone'
+	if (org.gradle.api.JavaVersion.current() == org.gradle.api.JavaVersion.VERSION_1_8) {
+		apply plugin: 'net.ltgt.errorprone'
+	}
 	apply plugin: 'checkstyle'
 	apply plugin: 'com.github.ben-manes.versions' // gradle dependencyUpdates
 	apply from: "$rootDir/gradle/degraph.gradle"
