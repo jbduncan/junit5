@@ -76,7 +76,7 @@ class AbstractTestDescriptorTests {
 
 	@Test
 	void pruneGroup() {
-		final AtomicInteger countVisited = new AtomicInteger();
+		AtomicInteger countVisited = new AtomicInteger();
 		TestDescriptor.Visitor visitor = descriptor -> {
 			if (descriptor.getUniqueId().equals(UniqueId.root("group", "group1")))
 				descriptor.removeFromHierarchy();

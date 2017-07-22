@@ -48,6 +48,12 @@ import org.junit.platform.engine.test.event.ExecutionEvent.Type;
  */
 public class ExecutionEventConditions {
 
+	///CLOVER:OFF
+	private ExecutionEventConditions() {
+		/* no-op */
+	}
+	///CLOVER:ON
+
 	@SafeVarargs
 	public static void assertRecordedExecutionEventsContainsExactly(List<ExecutionEvent> executionEvents,
 			Condition<? super ExecutionEvent>... conditions) {
@@ -62,7 +68,7 @@ public class ExecutionEventConditions {
 	@SafeVarargs
 	@SuppressWarnings("varargs")
 	public static Condition<ExecutionEvent> event(Condition<? super ExecutionEvent>... conditions) {
-		return Assertions.<ExecutionEvent> allOf(conditions);
+		return Assertions.allOf(conditions);
 	}
 
 	public static Condition<ExecutionEvent> engine() {

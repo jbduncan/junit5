@@ -10,7 +10,9 @@ buildscript {
 	dependencies {
 		classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.4.1'
 		classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
-		classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.11"
+		if (org.gradle.api.JavaVersion.current() == org.gradle.api.JavaVersion.VERSION_1_8) {
+			classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.11"
+		}
 		classpath 'org.ajoberstar:gradle-git:1.7.2'
 		classpath 'org.ajoberstar:gradle-git-publish:0.2.1'
 		classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-SNAPSHOT'
@@ -98,9 +100,6 @@ allprojects { subproj ->
 	apply plugin: 'eclipse'
 	apply plugin: 'idea'
 	apply plugin: 'com.diffplug.gradle.spotless'
-	if (org.gradle.api.JavaVersion.current() == org.gradle.api.JavaVersion.VERSION_1_8) {
-		apply plugin: 'net.ltgt.errorprone'
-	}
 	apply plugin: 'checkstyle'
 	apply plugin: 'com.github.ben-manes.versions' // gradle dependencyUpdates
 	apply from: "$rootDir/gradle/degraph.gradle"
@@ -422,16 +421,59 @@ subprojects { subproj ->
 	// Immutable (http://errorprone.info/bugpattern/Immutable).
 	// Would you like me to turn on these checks and find places where their corresponding
 	// annotations could be used?
-	if (org.gradle.api.JavaVersion.current() == org.gradle.api.JavaVersion.VERSION_1_8) {
+	if (org.gradle.api.JavaVersion.current() == org.gradle.api.JavaVersion.VERSION_1_8
+			&& subproj.name != 'documentation') {
+
+		apply plugin: 'net.ltgt.errorprone'
+
 		dependencies {
 			// TODO: Replace the errorprone dependency with 2.0.22 when it is out.
 			// errorprone('com.google.errorprone:error_prone_core:2.0.22')
 			errorprone('com.github.google:error-prone:05869dbbb6')
 			compileOnly('com.google.errorprone:error_prone_annotations:2.0.21')
 		}
+		compileJava {
+			options.compilerArgs += [
+				'-XepAllDisabledChecksAsWarnings',
+
+				// generates too many false positives on constructors that call other constructors.
+				// TODO: Once #939 is resolved, see if constructors can be refactored more easily
+				// to not call each other.
+				'-Xep:ConstructorLeaksThis:OFF',
+
+				// we target Java 8
+				'-Xep:StaticOrDefaultInterfaceMethod:OFF',
+
+				// we declare redundant `throws <general-exception>, <more-specific-exception>` for
+				// maintainability
+				'-Xep:RedundantThrows:OFF',
+
+				// we declare `throws <unchecked-exception>` for maintainability
+				'-Xep:ThrowsUncheckedException:OFF',
+
+				// we do not follow Google Java Style Guide
+				'-Xep:UngroupedOverloads:OFF',
+
+				'-Xep:Var:OFF'
+			]
+		}
 		compileTestJava {
 			options.compilerArgs += [
-				'-Xep:ClassCanBeStatic:OFF' // many nested test classes are non-static for testing reasons
+				'-XepAllDisabledChecksAsWarnings',
+
+				// many nested test classes are non-static for testing reasons
+				'-Xep:ClassCanBeStatic:OFF',
+
+				'-Xep:ConstructorLeaksThis:OFF',
+
+				// produces many warnings, none critical
+				// TODO: investigate if this check is worth having on for tests
+				'-Xep:MethodCanBeStatic:OFF',
+
+				'-Xep:StaticOrDefaultInterfaceMethod:OFF',
+				'-Xep:ThrowsUncheckedException:OFF',
+				'-Xep:UngroupedOverloads:OFF',
+				'-Xep:Var:OFF'
 			]
 		}
 	}

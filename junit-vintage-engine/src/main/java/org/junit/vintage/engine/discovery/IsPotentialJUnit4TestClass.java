@@ -34,7 +34,7 @@ class IsPotentialJUnit4TestClass implements Predicate<Class<?>> {
 		return true;
 	}
 
-	private boolean isNonStaticMemberClass(Class<?> candidate) {
+	private static boolean isNonStaticMemberClass(Class<?> candidate) {
 		return candidate.isMemberClass() && !isStatic(candidate);
 	}
 

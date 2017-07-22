@@ -40,7 +40,7 @@ class ExcludeClassNameFilter extends AbstractClassNameFilter {
 				.orElseGet(() -> included(formatInclusionReason(className)));
 	}
 
-	private String formatExclusionReason(String className, Pattern pattern) {
+	private static String formatExclusionReason(String className, Pattern pattern) {
 		return String.format("Class name [%s] matches excluded pattern: '%s'", className, pattern);
 	}
 

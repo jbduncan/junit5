@@ -48,7 +48,7 @@ class DiscoveryRequestCreator {
 		return requestBuilder.build();
 	}
 
-	private List<? extends DiscoverySelector> createDiscoverySelectors(CommandLineOptions options) {
+	private static List<? extends DiscoverySelector> createDiscoverySelectors(CommandLineOptions options) {
 		if (options.isScanClasspath()) {
 			Preconditions.condition(!options.hasExplicitSelectors(),
 				"Scanning the classpath and using explicit selectors at the same time is not supported");
@@ -57,12 +57,12 @@ class DiscoveryRequestCreator {
 		return createExplicitDiscoverySelectors(options);
 	}
 
-	private List<ClasspathRootSelector> createClasspathRootSelectors(CommandLineOptions options) {
+	private static List<ClasspathRootSelector> createClasspathRootSelectors(CommandLineOptions options) {
 		Set<Path> classpathRoots = determineClasspathRoots(options);
 		return selectClasspathRoots(classpathRoots);
 	}
 
-	private Set<Path> determineClasspathRoots(CommandLineOptions options) {
+	private static Set<Path> determineClasspathRoots(CommandLineOptions options) {
 		if (options.getSelectedClasspathEntries().isEmpty()) {
 			Set<Path> rootDirs = new LinkedHashSet<>(ReflectionUtils.getAllClasspathRootDirectories());
 			rootDirs.addAll(options.getAdditionalClasspathEntries());
@@ -71,7 +71,7 @@ class DiscoveryRequestCreator {
 		return new LinkedHashSet<>(options.getSelectedClasspathEntries());
 	}
 
-	private List<DiscoverySelector> createExplicitDiscoverySelectors(CommandLineOptions options) {
+	private static List<DiscoverySelector> createExplicitDiscoverySelectors(CommandLineOptions options) {
 		List<DiscoverySelector> selectors = new LinkedList<>();
 		options.getSelectedUris().stream().map(DiscoverySelectors::selectUri).forEach(selectors::add);
 		options.getSelectedFiles().stream().map(DiscoverySelectors::selectFile).forEach(selectors::add);
@@ -85,7 +85,7 @@ class DiscoveryRequestCreator {
 		return selectors;
 	}
 
-	private void addFilters(LauncherDiscoveryRequestBuilder requestBuilder, CommandLineOptions options) {
+	private static void addFilters(LauncherDiscoveryRequestBuilder requestBuilder, CommandLineOptions options) {
 		requestBuilder.filters(includeClassNamePatterns(options.getIncludedClassNamePatterns().toArray(new String[0])));
 
 		if (!options.getExcludedClassNamePatterns().isEmpty()) {

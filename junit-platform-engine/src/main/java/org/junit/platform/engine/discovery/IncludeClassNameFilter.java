@@ -44,7 +44,7 @@ class IncludeClassNameFilter extends AbstractClassNameFilter {
 		return String.format("Class name [%s] does not match any included pattern: %s", className, patternDescription);
 	}
 
-	private String formatInclusionReason(String className, Pattern pattern) {
+	private static String formatInclusionReason(String className, Pattern pattern) {
 		return String.format("Class name [%s] matches included pattern: '%s'", className, pattern);
 	}
 

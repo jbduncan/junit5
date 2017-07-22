@@ -100,7 +100,7 @@ public class ExtensionValuesStore {
 	}
 
 	@SuppressWarnings("unchecked")
-	private <T> T castToRequiredType(Object key, Object value, Class<T> requiredType) {
+	private static <T> T castToRequiredType(Object key, Object value, Class<T> requiredType) {
 		if (value == null) {
 			return null;
 		}

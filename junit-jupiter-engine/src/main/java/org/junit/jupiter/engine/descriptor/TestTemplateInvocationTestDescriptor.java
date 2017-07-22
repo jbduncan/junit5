@@ -36,7 +36,7 @@ public class TestTemplateInvocationTestDescriptor extends TestMethodTestDescript
 
 	TestTemplateInvocationTestDescriptor(UniqueId uniqueId, Class<?> testClass, Method templateMethod,
 			TestTemplateInvocationContext invocationContext, int index) {
-		super(uniqueId, invocationContext.getDisplayName(index), testClass, templateMethod);
+		super(uniqueId, testClass, templateMethod, invocationContext.getDisplayName(index));
 		this.invocationContext = invocationContext;
 	}
 

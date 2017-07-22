@@ -68,17 +68,17 @@ public class ExecutableInvoker {
 	 * an inner class.
 	 *
 	 * @param constructor the constructor to invoke and resolve parameters for
-	 * @param outerInstance the outer instance to supply as the first argument
-	 * to the constructor
 	 * @param extensionContext the current {@code ExtensionContext}
 	 * @param extensionRegistry the {@code ExtensionRegistry} to retrieve
 	 * {@code ParameterResolvers} from
+	 * @param outerInstance the outer instance to supply as the first argument
+	 * to the constructor
 	 */
-	public <T> T invoke(Constructor<T> constructor, Object outerInstance, ExtensionContext extensionContext,
-			ExtensionRegistry extensionRegistry) {
+	public <T> T invoke(Constructor<T> constructor, ExtensionContext extensionContext,
+			ExtensionRegistry extensionRegistry, Object outerInstance) {
 
 		return ReflectionUtils.newInstance(constructor,
-			resolveParameters(constructor, Optional.empty(), outerInstance, extensionContext, extensionRegistry));
+			resolveParameters(constructor, Optional.empty(), extensionContext, extensionRegistry, outerInstance));
 	}
 
 	/**
@@ -97,16 +97,15 @@ public class ExecutableInvoker {
 	/**
 	 * Invoke the supplied method on the supplied target object with dynamic parameter
 	 * resolution.
-	 *
-	 * @param method the method to invoke and resolve parameters for
-	 * @param target the object on which the method will be invoked; should be
-	 * {@code null} for static methods
+	 *  @param method the method to invoke and resolve parameters for
 	 * @param extensionContext the current {@code ExtensionContext}
 	 * @param extensionRegistry the {@code ExtensionRegistry} to retrieve
 	 * {@code ParameterResolvers} from
+	 * @param target the object on which the method will be invoked; should be
+	 * {@code null} for static methods
 	 */
-	public Object invoke(Method method, Object target, ExtensionContext extensionContext,
-			ExtensionRegistry extensionRegistry) {
+	public Object invoke(Method method, ExtensionContext extensionContext, ExtensionRegistry extensionRegistry,
+			Object target) {
 
 		@SuppressWarnings("unchecked")
 		Optional<Object> optionalTarget = (target instanceof Optional ? (Optional<Object>) target
@@ -128,10 +127,10 @@ public class ExecutableInvoker {
 	 * @return the array of Objects to be used as parameters in the executable
 	 * invocation; never {@code null} though potentially empty
 	 */
-	private Object[] resolveParameters(Executable executable, Optional<Object> target,
+	private static Object[] resolveParameters(Executable executable, Optional<Object> target,
 			ExtensionContext extensionContext, ExtensionRegistry extensionRegistry) {
 
-		return resolveParameters(executable, target, null, extensionContext, extensionRegistry);
+		return resolveParameters(executable, target, extensionContext, extensionRegistry, null);
 	}
 
 	/**
@@ -142,17 +141,17 @@ public class ExecutableInvoker {
 	 * @param target an {@code Optional} containing the target on which the
 	 * executable will be invoked; never {@code null} but should be empty for
 	 * static methods and constructors
-	 * @param outerInstance the outer instance that will be supplied as the
-	 * first argument to a constructor for an inner class; should be {@code null}
-	 * for methods and constructors for top-level or static classes
 	 * @param extensionContext the current {@code ExtensionContext}
 	 * @param extensionRegistry the {@code ExtensionRegistry} to retrieve
 	 * {@code ParameterResolvers} from
+	 * @param outerInstance the outer instance that will be supplied as the
+	 * first argument to a constructor for an inner class; should be {@code null}
+	 * for methods and constructors for top-level or static classes
 	 * @return the array of Objects to be used as parameters in the executable
 	 * invocation; never {@code null} though potentially empty
 	 */
-	private Object[] resolveParameters(Executable executable, Optional<Object> target, Object outerInstance,
-			ExtensionContext extensionContext, ExtensionRegistry extensionRegistry) {
+	private static Object[] resolveParameters(Executable executable, Optional<Object> target,
+			ExtensionContext extensionContext, ExtensionRegistry extensionRegistry, Object outerInstance) {
 
 		Preconditions.notNull(target, "target must not be null");
 
@@ -175,7 +174,7 @@ public class ExecutableInvoker {
 		return values;
 	}
 
-	private Object resolveParameter(ParameterContext parameterContext, Executable executable,
+	private static Object resolveParameter(ParameterContext parameterContext, Executable executable,
 			ExtensionContext extensionContext, ExtensionRegistry extensionRegistry) {
 
 		try {
@@ -222,7 +221,7 @@ public class ExecutableInvoker {
 		}
 	}
 
-	private void validateResolvedType(Parameter parameter, Object value, Executable executable,
+	private static void validateResolvedType(Parameter parameter, Object value, Executable executable,
 			ParameterResolver resolver) {
 
 		Class<?> type = parameter.getType();

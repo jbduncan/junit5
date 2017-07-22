@@ -76,7 +76,7 @@ class TestClassRequestResolver {
 		return runnerTestDescriptor;
 	}
 
-	private Filter createOrFilter(List<RunnerTestDescriptorAwareFilter> filters,
+	private static Filter createOrFilter(List<RunnerTestDescriptorAwareFilter> filters,
 			RunnerTestDescriptor runnerTestDescriptor) {
 		filters.forEach(filter -> filter.initialize(runnerTestDescriptor));
 		return new OrFilter(filters);
@@ -110,7 +110,7 @@ class TestClassRequestResolver {
 		}
 	}
 
-	private IntFunction<String> determineUniqueIdGenerator(String uniqueId,
+	private static IntFunction<String> determineUniqueIdGenerator(String uniqueId,
 			List<Description> childrenWithSameUniqueId) {
 		if (childrenWithSameUniqueId.size() == 1) {
 			return index -> uniqueId;

@@ -114,7 +114,7 @@ public class TestTemplateTestDescriptor extends MethodBasedTestDescriptor {
 		dynamicTestExecutor.execute(testDescriptor);
 	}
 
-	private void validateWasAtLeastInvokedOnce(int invocationIndex) {
+	private static void validateWasAtLeastInvokedOnce(int invocationIndex) {
 		Preconditions.condition(invocationIndex > 0, () -> "No supporting "
 				+ TestTemplateInvocationContextProvider.class.getSimpleName() + " provided an invocation context");
 	}

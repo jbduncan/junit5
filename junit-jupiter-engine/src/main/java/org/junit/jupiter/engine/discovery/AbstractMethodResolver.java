@@ -88,7 +88,7 @@ abstract class AbstractMethodResolver implements ElementResolver {
 		return parent.getUniqueId().append(this.segmentType, methodId);
 	}
 
-	private Optional<Method> findMethod(UniqueId.Segment segment, ClassTestDescriptor parent) {
+	private static Optional<Method> findMethod(UniqueId.Segment segment, ClassTestDescriptor parent) {
 		return methodFinder.findMethod(segment.getValue(), parent.getTestClass());
 	}
 

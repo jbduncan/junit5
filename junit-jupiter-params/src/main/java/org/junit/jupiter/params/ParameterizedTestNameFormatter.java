@@ -48,7 +48,7 @@ class ParameterizedTestNameFormatter {
 		return result;
 	}
 
-	private Object[] makeReadable(Object[] arguments) {
+	private static Object[] makeReadable(Object[] arguments) {
 		// Note: humanReadableArguments must be an Object[] in order to
 		// avoid varargs issues with non-Eclipse compilers.
 		Object[] humanReadableArguments = new String[arguments.length];
@@ -58,7 +58,7 @@ class ParameterizedTestNameFormatter {
 		return humanReadableArguments;
 	}
 
-	private String formatSafely(String pattern, Object[] arguments) {
+	private static String formatSafely(String pattern, Object[] arguments) {
 		try {
 			return MessageFormat.format(pattern, arguments);
 		}
