@@ -440,9 +440,9 @@ class VintageTestEngineDiscoveryTests {
 	void resolvesUniqueIdSelectorOfSingleMethodWithinSuite() throws Exception {
 		Class<?> suiteClass = JUnit4SuiteWithTwoTestCases.class;
 		Class<?> testClass = PlainJUnit4TestCaseWithTwoTestMethods.class;
-		LauncherDiscoveryRequest discoveryRequest = request().selectors(selectUniqueId(
-			VintageUniqueIdBuilder.uniqueIdForMethod(VintageUniqueIdBuilder.uniqueIdForClasses(suiteClass, testClass),
-				testClass, "successfulTest"))).build();
+		LauncherDiscoveryRequest discoveryRequest = request().selectors(
+			selectUniqueId(VintageUniqueIdBuilder.uniqueIdForMethod(testClass, "successfulTest",
+				VintageUniqueIdBuilder.uniqueIdForClasses(suiteClass, testClass)))).build();
 
 		TestDescriptor engineDescriptor = discoverTests(discoveryRequest);
 
@@ -665,7 +665,7 @@ class VintageTestEngineDiscoveryTests {
 		assertTrue(testMethodDescriptor.isTest());
 		assertFalse(testMethodDescriptor.isContainer());
 		assertEquals(methodName, testMethodDescriptor.getDisplayName());
-		Assertions.assertEquals(VintageUniqueIdBuilder.uniqueIdForMethod(uniqueContainerId, testClass, methodName),
+		Assertions.assertEquals(VintageUniqueIdBuilder.uniqueIdForMethod(testClass, methodName, uniqueContainerId),
 			testMethodDescriptor.getUniqueId());
 		assertThat(testMethodDescriptor.getChildren()).isEmpty();
 		assertMethodSource(testClass.getMethod(methodName), testMethodDescriptor);

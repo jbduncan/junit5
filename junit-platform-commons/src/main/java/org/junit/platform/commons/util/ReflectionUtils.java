@@ -47,6 +47,8 @@ import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.errorprone.annotations.Var;
+
 import org.junit.platform.commons.JUnitException;
 import org.junit.platform.commons.meta.API;
 
@@ -408,7 +410,7 @@ public final class ReflectionUtils {
 	 * @param classLoader the {@code ClassLoader} to use; never {@code null}
 	 * @see #loadClass(String)
 	 */
-	public static Optional<Class<?>> loadClass(String name, ClassLoader classLoader) {
+	public static Optional<Class<?>> loadClass(@Var String name, ClassLoader classLoader) {
 		Preconditions.notBlank(name, "Class name must not be null or blank");
 		Preconditions.notNull(classLoader, "ClassLoader must not be null");
 		name = name.trim();
@@ -418,6 +420,7 @@ public final class ReflectionUtils {
 		}
 
 		try {
+			@Var
 			Matcher matcher;
 
 			// Primitive arrays such as "[I", "[[[[D", etc.
@@ -953,6 +956,7 @@ public final class ReflectionUtils {
 	private static int defaultMethodSorter(Method method1, Method method2) {
 		String name1 = method1.getName();
 		String name2 = method2.getName();
+		@Var
 		int comparison = Integer.compare(name1.hashCode(), name2.hashCode());
 		if (comparison == 0) {
 			comparison = name1.compareTo(name2);

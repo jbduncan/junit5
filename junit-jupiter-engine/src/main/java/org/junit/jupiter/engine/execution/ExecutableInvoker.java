@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import com.google.errorprone.annotations.Var;
+
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
@@ -157,6 +159,7 @@ public class ExecutableInvoker {
 
 		Parameter[] parameters = executable.getParameters();
 		Object[] values = new Object[parameters.length];
+		@Var
 		int start = 0;
 
 		// Ensure that the outer instance is resolved as the first parameter if

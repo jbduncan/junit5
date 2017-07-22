@@ -12,6 +12,8 @@ package org.junit.platform.engine.support.hierarchical;
 
 import static org.junit.platform.commons.util.BlacklistedExceptions.rethrowIfBlacklisted;
 
+import com.google.errorprone.annotations.Var;
+
 import org.junit.platform.engine.EngineExecutionListener;
 import org.junit.platform.engine.ExecutionRequest;
 import org.junit.platform.engine.TestDescriptor;
@@ -75,6 +77,7 @@ class HierarchicalTestExecutor<C extends EngineExecutionContext> {
 		this.listener.executionStarted(testDescriptor);
 
 		TestExecutionResult result = singleTestExecutor.executeSafely(() -> {
+			@Var
 			C context = preparedContext;
 			try {
 				context = node.before(context);

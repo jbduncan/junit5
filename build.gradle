@@ -452,27 +452,26 @@ subprojects { subproj ->
 				'-Xep:ThrowsUncheckedException:OFF',
 
 				// we do not follow Google Java Style Guide
-				'-Xep:UngroupedOverloads:OFF',
-
-				'-Xep:Var:OFF'
+				'-Xep:UngroupedOverloads:OFF'
 			]
 		}
 		compileTestJava {
 			options.compilerArgs += [
 				'-XepAllDisabledChecksAsWarnings',
 
-				// many nested test classes are non-static for testing reasons
+				// these checks are often violated on purpose for testing reasons
 				'-Xep:ClassCanBeStatic:OFF',
-
+				'-Xep:ConstantField:OFF',
+				'-Xep:ConstructorInvokesOverridable:OFF',
 				'-Xep:ConstructorLeaksThis:OFF',
-
-				// produces many warnings, none critical
-				// TODO: investigate if this check is worth having on for tests
 				'-Xep:MethodCanBeStatic:OFF',
-
+				'-Xep:PrivateConstructorForUtilityClass:OFF',
 				'-Xep:StaticOrDefaultInterfaceMethod:OFF',
 				'-Xep:ThrowsUncheckedException:OFF',
 				'-Xep:UngroupedOverloads:OFF',
+
+				// produces lots of warnings, none critical but potentially useful
+				// TODO: investigate if its worth turning this check on for tests
 				'-Xep:Var:OFF'
 			]
 		}

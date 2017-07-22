@@ -58,7 +58,7 @@ public class VintageUniqueIdBuilder {
 			methodValue(testClass, methodName) + "[" + index + "]");
 	}
 
-	public static UniqueId uniqueIdForMethod(UniqueId containerId, Class<?> testClass, String methodName) {
+	public static UniqueId uniqueIdForMethod(Class<?> testClass, String methodName, UniqueId containerId) {
 		return containerId.append(VintageTestDescriptor.SEGMENT_TYPE_TEST, methodValue(testClass, methodName));
 	}
 

@@ -66,8 +66,8 @@ class XmlReportsWritingListenerTests {
 	@Test
 	void writesFileForSingleSucceedingTest(@Root Path tempDirectory) throws Exception {
 		DemoHierarchicalTestEngine engine = new DemoHierarchicalTestEngine("dummy");
-		engine.addTest("succeedingTest", "display<-->Name 😎", () -> {
-		});
+		engine.addTest("succeedingTest", () -> {
+		}, "display<-->Name 😎");
 
 		executeTests(engine, tempDirectory);
 

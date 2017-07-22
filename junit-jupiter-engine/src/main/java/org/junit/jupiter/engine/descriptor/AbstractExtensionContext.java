@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import com.google.errorprone.annotations.Var;
+
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.engine.execution.ExtensionValuesStore;
 import org.junit.jupiter.engine.execution.NamespaceAwareStore;
@@ -45,6 +47,7 @@ abstract class AbstractExtensionContext<T extends TestDescriptor> implements Ext
 	}
 
 	private static ExtensionValuesStore createStore(ExtensionContext parent) {
+		@Var
 		ExtensionValuesStore parentStore = null;
 		if (parent != null) {
 			parentStore = ((AbstractExtensionContext<?>) parent).valuesStore;
@@ -74,6 +77,7 @@ abstract class AbstractExtensionContext<T extends TestDescriptor> implements Ext
 
 	@Override
 	public ExtensionContext getRoot() {
+		@Var
 		ExtensionContext root = this;
 		while (parent != null && parent != root) {
 			root = parent;

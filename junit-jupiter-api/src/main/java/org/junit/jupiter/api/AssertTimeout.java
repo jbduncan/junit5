@@ -23,6 +23,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 
+import com.google.errorprone.annotations.Var;
+
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.api.function.ThrowingSupplier;
 import org.junit.platform.commons.util.ExceptionUtils;
@@ -68,6 +70,7 @@ class AssertTimeout {
 	static <T> T assertTimeout(Duration timeout, ThrowingSupplier<T> supplier, Supplier<String> messageSupplier) {
 		long timeoutInMillis = timeout.toMillis();
 		long start = System.currentTimeMillis();
+		@Var
 		T result = null;
 		try {
 			result = supplier.get();

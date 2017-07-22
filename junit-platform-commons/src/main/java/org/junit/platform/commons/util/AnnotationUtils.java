@@ -33,6 +33,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.google.errorprone.annotations.Var;
+
 import org.junit.platform.commons.JUnitException;
 import org.junit.platform.commons.meta.API;
 import org.junit.platform.commons.util.ReflectionUtils.HierarchyTraversalMode;
@@ -83,6 +85,7 @@ public final class AnnotationUtils {
 		Preconditions.notNull(attributeType, "attributeType must not be null");
 
 		Class<? extends Annotation> annotationType = annotation.annotationType();
+		@Var
 		Method attribute = null;
 		try {
 			attribute = annotationType.getDeclaredMethod(attributeName);
@@ -165,6 +168,7 @@ public final class AnnotationUtils {
 
 		// Cached?
 		AnnotationCacheKey key = new AnnotationCacheKey(element, annotationType);
+		@Var
 		A annotation = (A) annotationCache.get(key);
 		if (annotation != null) {
 			return Optional.of(annotation);
