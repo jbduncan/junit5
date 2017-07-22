@@ -20,6 +20,8 @@ import java.util.Deque;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
+import com.google.errorprone.annotations.Var;
+
 /**
  * {@code AssertLinesMatch} is a collection of utility methods that support asserting
  * lines of {@link String} equality or {@link java.util.regex.Pattern}-match in tests.
@@ -55,6 +57,7 @@ class AssertLinesMatch {
 
 		// simple case: both list are equally sized, compare them line-by-line
 		if (expectedSize == actualSize) {
+			@Var
 			boolean allOk = true;
 			for (int i = 0; i < expectedSize; i++) {
 				if (matches(expectedLines.get(i), actualLines.get(i))) {
@@ -76,6 +79,7 @@ class AssertLinesMatch {
 		Deque<String> actualDeque = new ArrayDeque<>(actualLines);
 
 		main: while (!expectedDeque.isEmpty()) {
+			@Var
 			String expectedLine = expectedDeque.pop();
 			String actualLine = actualDeque.peek();
 
@@ -153,7 +157,7 @@ class AssertLinesMatch {
 		assertEquals(expected, actual, format(format, args));
 	}
 
-	static boolean isFastForwardLine(String line) {
+	static boolean isFastForwardLine(@Var String line) {
 		line = line.trim();
 		return line.length() >= 4 && line.startsWith(">>") && line.endsWith(">>");
 	}

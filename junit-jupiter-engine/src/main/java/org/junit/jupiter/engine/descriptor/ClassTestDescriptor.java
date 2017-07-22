@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
+import com.google.errorprone.annotations.Var;
+
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.extension.AfterAllCallback;
@@ -287,6 +289,7 @@ public class ClassTestDescriptor extends JupiterTestDescriptor {
 	private static void invokeMethodInExtensionContext(Method method, ExtensionContext context,
 			ExtensionRegistry registry) {
 
+		@Var
 		Object testInstance = context.getRequiredTestInstance();
 		testInstance = ReflectionUtils.getOutermostInstance(testInstance, method.getDeclaringClass()).orElseThrow(
 			() -> new JUnitException("Failed to find instance for method: " + method.toGenericString()));

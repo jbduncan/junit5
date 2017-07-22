@@ -17,12 +17,6 @@ import java.util.Set;
 
 final class IterableFactory {
 
-	///CLOVER:OFF
-	private IterableFactory() {
-		/* no-op */
-	}
-	///CLOVER:ON
-
 	static List<Object> listOf(Object... objects) {
 		return Arrays.asList(objects);
 	}

@@ -26,12 +26,6 @@ import org.junit.platform.engine.TestExecutionResult.Status;
  */
 public class TestExecutionResultConditions {
 
-	///CLOVER:OFF
-	private TestExecutionResultConditions() {
-		/* no-op */
-	}
-	///CLOVER:ON
-
 	public static Condition<TestExecutionResult> status(Status expectedStatus) {
 		return new Condition<>(where(TestExecutionResult::getStatus, isEqual(expectedStatus)), "status is %s",
 			expectedStatus);
