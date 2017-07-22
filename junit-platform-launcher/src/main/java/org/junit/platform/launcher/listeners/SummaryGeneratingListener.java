@@ -16,7 +16,6 @@ import static org.junit.platform.commons.meta.API.Usage.Experimental;
 import java.util.stream.Stream;
 
 import org.junit.platform.commons.meta.API;
-import org.junit.platform.commons.util.PreconditionViolationException;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestIdentifier;
@@ -123,10 +122,6 @@ public class SummaryGeneratingListener implements TestExecutionListener {
 					throwable -> this.summary.addFailure(testIdentifier, throwable));
 				break;
 			}
-
-			default:
-				throw new PreconditionViolationException(
-					"Unsupported execution status:" + testExecutionResult.getStatus());
 		}
 	}
 

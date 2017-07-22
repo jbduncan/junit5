@@ -174,7 +174,8 @@ public class JUnitPlatform extends Runner implements Filterable {
 		return selectors;
 	}
 
-	private <T> List<DiscoverySelector> transform(T[] sourceElements, Function<T, DiscoverySelector> transformer) {
+	private static <T> List<DiscoverySelector> transform(T[] sourceElements,
+			Function<T, DiscoverySelector> transformer) {
 		return stream(sourceElements).map(transformer).collect(toList());
 	}
 
@@ -286,7 +287,7 @@ public class JUnitPlatform extends Runner implements Filterable {
 		return patterns;
 	}
 
-	private void trim(String[] patterns) {
+	private static void trim(String[] patterns) {
 		for (int i = 0; i < patterns.length; i++) {
 			patterns[i] = patterns[i].trim();
 		}
@@ -308,7 +309,7 @@ public class JUnitPlatform extends Runner implements Filterable {
 		this.testTree = generateTestTree();
 	}
 
-	private LauncherDiscoveryRequest createDiscoveryRequestForUniqueIds(Set<TestIdentifier> testIdentifiers) {
+	private static LauncherDiscoveryRequest createDiscoveryRequestForUniqueIds(Set<TestIdentifier> testIdentifiers) {
 		// @formatter:off
 		List<DiscoverySelector> selectors = testIdentifiers.stream()
 				.map(TestIdentifier::getUniqueId)

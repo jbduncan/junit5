@@ -150,7 +150,7 @@ class ClasspathScanner {
 		}
 	}
 
-	private String determineFullyQualifiedClassName(Path baseDir, String basePackageName, Path classFile) {
+	private static String determineFullyQualifiedClassName(Path baseDir, String basePackageName, Path classFile) {
 		// @formatter:off
 		return Stream.of(
 					basePackageName,
@@ -162,12 +162,12 @@ class ClasspathScanner {
 		// @formatter:on
 	}
 
-	private String determineSimpleClassName(Path classFile) {
+	private static String determineSimpleClassName(Path classFile) {
 		String fileName = classFile.getFileName().toString();
 		return fileName.substring(0, fileName.length() - CLASS_FILE_SUFFIX.length());
 	}
 
-	private String determineSubpackageName(Path baseDir, Path classFile) {
+	private static String determineSubpackageName(Path baseDir, Path classFile) {
 		Path relativePath = baseDir.relativize(classFile.getParent());
 		String pathSeparator = baseDir.getFileSystem().getSeparator();
 		String subpackageName = relativePath.toString().replace(pathSeparator, PACKAGE_SEPARATOR_STRING);
@@ -178,7 +178,7 @@ class ClasspathScanner {
 		return subpackageName;
 	}
 
-	private void handleInternalError(Path classFile, String fullyQualifiedClassName, InternalError ex) {
+	private static void handleInternalError(Path classFile, String fullyQualifiedClassName, InternalError ex) {
 		if (MALFORMED_CLASS_NAME_ERROR_MESSAGE.equals(ex.getMessage())) {
 			logMalformedClassName(classFile, fullyQualifiedClassName, ex);
 		}
@@ -187,12 +187,12 @@ class ClasspathScanner {
 		}
 	}
 
-	private void handleThrowable(Path classFile, Throwable throwable) {
+	private static void handleThrowable(Path classFile, Throwable throwable) {
 		rethrowIfBlacklisted(throwable);
 		logGenericFileProcessingException(classFile, throwable);
 	}
 
-	private void logMalformedClassName(Path classFile, String fullyQualifiedClassName, InternalError ex) {
+	private static void logMalformedClassName(Path classFile, String fullyQualifiedClassName, InternalError ex) {
 		try {
 			logWarning(ex, () -> format("The java.lang.Class loaded from path [%s] has a malformed class name [%s].",
 				classFile.toAbsolutePath(), fullyQualifiedClassName));
@@ -203,7 +203,7 @@ class ClasspathScanner {
 		}
 	}
 
-	private void logGenericFileProcessingException(Path classFile, Throwable throwable) {
+	private static void logGenericFileProcessingException(Path classFile, Throwable throwable) {
 		logWarning(throwable, () -> format("Failed to load java.lang.Class for path [%s] during classpath scanning.",
 			classFile.toAbsolutePath()));
 	}

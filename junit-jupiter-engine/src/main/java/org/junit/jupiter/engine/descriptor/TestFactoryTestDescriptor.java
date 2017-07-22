@@ -67,8 +67,8 @@ public class TestFactoryTestDescriptor extends TestMethodTestDescriptor {
 
 		context.getThrowableCollector().execute(() -> {
 			Object instance = extensionContext.getRequiredTestInstance();
-			Object testFactoryMethodResult = executableInvoker.invoke(getTestMethod(), instance, extensionContext,
-				context.getExtensionRegistry());
+			Object testFactoryMethodResult = executableInvoker.invoke(getTestMethod(), extensionContext,
+				context.getExtensionRegistry(), instance);
 			TestSource source = getSource().orElseThrow(
 				() -> new JUnitException("Illegal state: TestSource must be present"));
 			try (Stream<DynamicNode> dynamicNodeStream = toDynamicNodeStream(testFactoryMethodResult)) {

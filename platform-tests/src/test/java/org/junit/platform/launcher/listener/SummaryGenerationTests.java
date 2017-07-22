@@ -144,7 +144,7 @@ class SummaryGenerationTests {
 		listener.executionStarted(failingTest);
 		listener.executionFinished(failingTest, TestExecutionResult.failed(failedException));
 		listener.testPlanExecutionFinished(testPlan);
-		final List<TestExecutionSummary.Failure> failures = listener.getSummary().getFailures();
+		List<TestExecutionSummary.Failure> failures = listener.getSummary().getFailures();
 		assertThat(failures).hasSize(1);
 		assertThat(failures.get(0).getException()).isEqualTo(failedException);
 		assertThat(failures.get(0).getTestIdentifier()).isEqualTo(failingTest);

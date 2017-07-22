@@ -50,7 +50,7 @@ class ExcludePackageNameFilter implements PackageNameFilter {
 				.orElseGet(() -> included(formatInclusionReason(packageName)));
 	}
 
-	private String formatExclusionReason(String packageName, String matchedName) {
+	private static String formatExclusionReason(String packageName, String matchedName) {
 		return String.format("Package name [%s] matches excluded name: '%s'", packageName, matchedName);
 	}
 

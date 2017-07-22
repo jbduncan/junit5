@@ -42,7 +42,7 @@ public class NestedClassTestDescriptor extends ClassTestDescriptor {
 	private static final ExecutableInvoker executableInvoker = new ExecutableInvoker();
 
 	public NestedClassTestDescriptor(UniqueId uniqueId, Class<?> testClass) {
-		super(uniqueId, Class::getSimpleName, testClass);
+		super(uniqueId, testClass, Class::getSimpleName);
 	}
 
 	// --- TestDescriptor ------------------------------------------------------
@@ -65,7 +65,7 @@ public class NestedClassTestDescriptor extends ClassTestDescriptor {
 		Object outerInstance = parentExecutionContext.getTestInstanceProvider().getTestInstance(
 			childExtensionRegistryForOuterInstance);
 		Constructor<?> constructor = ReflectionUtils.getDeclaredConstructor(getTestClass());
-		return executableInvoker.invoke(constructor, outerInstance, extensionContext, registry);
+		return executableInvoker.invoke(constructor, extensionContext, registry, outerInstance);
 	}
 
 }

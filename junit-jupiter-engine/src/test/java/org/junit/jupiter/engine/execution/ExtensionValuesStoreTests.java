@@ -348,7 +348,7 @@ class ExtensionValuesStoreTests {
 
 	}
 
-	private Object createObject(final String display) {
+	private Object createObject(String display) {
 		return new Object() {
 
 			@Override

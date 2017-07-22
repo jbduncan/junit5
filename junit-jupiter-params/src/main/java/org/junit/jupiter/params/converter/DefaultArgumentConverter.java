@@ -74,12 +74,12 @@ public class DefaultArgumentConverter extends SimpleArgumentConverter {
 		return convertToTargetType(source, toWrapperType(targetType));
 	}
 
-	private Class<?> toWrapperType(Class<?> targetType) {
+	private static Class<?> toWrapperType(Class<?> targetType) {
 		Class<?> wrapperType = ReflectionUtils.getWrapperType(targetType);
 		return wrapperType != null ? wrapperType : targetType;
 	}
 
-	private Object convertToTargetType(Object source, Class<?> targetType) {
+	private static Object convertToTargetType(Object source, Class<?> targetType) {
 		if (targetType.isInstance(source)) {
 			return source;
 		}
@@ -151,7 +151,7 @@ public class DefaultArgumentConverter extends SimpleArgumentConverter {
 		}
 
 		@SuppressWarnings({ "unchecked", "rawtypes" })
-		private Object valueOf(Class targetType, String source) {
+		private static Object valueOf(Class targetType, String source) {
 			return Enum.valueOf(targetType, source);
 		}
 	}

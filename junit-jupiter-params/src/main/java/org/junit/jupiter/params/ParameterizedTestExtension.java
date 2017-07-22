@@ -60,12 +60,12 @@ class ParameterizedTestExtension implements TestTemplateInvocationContextProvide
 		// @formatter:on
 	}
 
-	private TestTemplateInvocationContext createInvocationContext(ParameterizedTestNameFormatter formatter,
+	private static TestTemplateInvocationContext createInvocationContext(ParameterizedTestNameFormatter formatter,
 			Object[] arguments) {
 		return new ParameterizedTestInvocationContext(formatter, arguments);
 	}
 
-	private ParameterizedTestNameFormatter createNameFormatter(Method templateMethod) {
+	private static ParameterizedTestNameFormatter createNameFormatter(Method templateMethod) {
 		ParameterizedTest parameterizedTest = findAnnotation(templateMethod, ParameterizedTest.class).get();
 		String name = Preconditions.notBlank(parameterizedTest.name().trim(),
 			() -> String.format(

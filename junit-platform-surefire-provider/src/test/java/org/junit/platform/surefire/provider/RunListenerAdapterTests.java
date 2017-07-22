@@ -172,7 +172,7 @@ class RunListenerAdapterTests {
 		adapter.testPlanExecutionStarted(plan);
 
 		// Use the test plan to set up child with parent.
-		final String parentDisplay = "I am your father";
+		String parentDisplay = "I am your father";
 		TestIdentifier child = newSourcelessIdentifierWithParent(plan, parentDisplay);
 		adapter.executionStarted(child);
 

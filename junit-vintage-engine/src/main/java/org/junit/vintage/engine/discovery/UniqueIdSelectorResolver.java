@@ -38,11 +38,11 @@ class UniqueIdSelectorResolver implements DiscoverySelectorResolver {
 	public void resolve(EngineDiscoveryRequest request, TestClassCollector collector) {
 		// @formatter:off
 		request.getSelectorsByType(UniqueIdSelector.class)
-			.stream()
-			.map(UniqueIdSelector::getUniqueId)
-			.filter(this::isNotEngineId)
-			.filter(this::isForVintageEngine)
-			.forEach(uniqueId -> resolveIntoFilteredTestClass(uniqueId, collector));
+				.stream()
+				.map(UniqueIdSelector::getUniqueId)
+				.filter(this::isNotEngineId)
+				.filter(UniqueIdSelectorResolver::isForVintageEngine)
+				.forEach(uniqueId -> resolveIntoFilteredTestClass(uniqueId, collector));
 		// @formatter:on
 	}
 
@@ -55,19 +55,19 @@ class UniqueIdSelectorResolver implements DiscoverySelectorResolver {
 		return !isEngineId;
 	}
 
-	private boolean isForVintageEngine(UniqueId uniqueId) {
+	private static boolean isForVintageEngine(UniqueId uniqueId) {
 		// @formatter:off
 		return uniqueId.getEngineId()
-			.map(engineId -> engineId.equals(ENGINE_ID))
-			.orElse(false);
+				.map(engineId -> engineId.equals(ENGINE_ID))
+				.orElse(false);
 		// @formatter:on
 	}
 
 	private void resolveIntoFilteredTestClass(UniqueId uniqueId, TestClassCollector collector) {
 		// @formatter:off
 		determineTestClassName(uniqueId)
-			.flatMap(testClassName -> loadTestClass(testClassName, uniqueId))
-			.ifPresent(testClass -> collector.addFiltered(testClass, new UniqueIdFilter(uniqueId)));
+				.flatMap(testClassName -> loadTestClass(testClassName, uniqueId))
+				.ifPresent(testClass -> collector.addFiltered(testClass, new UniqueIdFilter(uniqueId)));
 		// @formatter:on
 	}
 

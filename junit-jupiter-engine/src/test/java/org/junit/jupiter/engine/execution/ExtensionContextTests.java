@@ -183,8 +183,8 @@ class ExtensionContextTests {
 		ExtensionContext.Store childStore = childContext.getStore();
 		ExtensionContext.Store parentStore = parentContext.getStore();
 
-		final Object key1 = "key 1";
-		final String value1 = "a value";
+		Object key1 = "key 1";
+		String value1 = "a value";
 		childStore.put(key1, value1);
 		assertEquals(value1, childStore.get(key1));
 		assertEquals(value1, childStore.remove(key1));
@@ -195,15 +195,15 @@ class ExtensionContextTests {
 		assertEquals(value1, childStore.remove(key1, String.class));
 		assertNull(childStore.get(key1));
 
-		final Object key2 = "key 2";
-		final String value2 = "other value";
+		Object key2 = "key 2";
+		String value2 = "other value";
 		assertEquals(value2, childStore.getOrComputeIfAbsent(key2, key -> value2));
 		assertEquals(value2, childStore.getOrComputeIfAbsent(key2, key -> value2, String.class));
 		assertEquals(value2, childStore.get(key2));
 		assertEquals(value2, childStore.get(key2, String.class));
 
-		final Object parentKey = "parent key";
-		final String parentValue = "parent value";
+		Object parentKey = "parent key";
+		String parentValue = "parent value";
 		parentStore.put(parentKey, parentValue);
 		assertEquals(parentValue, childStore.getOrComputeIfAbsent(parentKey, k -> "a different value"));
 		assertEquals(parentValue, childStore.get(parentKey));

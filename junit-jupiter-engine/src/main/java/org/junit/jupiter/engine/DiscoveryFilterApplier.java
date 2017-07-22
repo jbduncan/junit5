@@ -36,7 +36,8 @@ class DiscoveryFilterApplier {
 		applyPackageNameFilters(discoveryRequest.getFiltersByType(PackageNameFilter.class), engineDescriptor);
 	}
 
-	private void applyPackageNameFilters(List<PackageNameFilter> packageNameFilters, TestDescriptor engineDescriptor) {
+	private static void applyPackageNameFilters(List<PackageNameFilter> packageNameFilters,
+			TestDescriptor engineDescriptor) {
 		if (packageNameFilters.isEmpty()) {
 			return;
 		}
@@ -49,7 +50,7 @@ class DiscoveryFilterApplier {
 		engineDescriptor.accept(filteringVisitor);
 	}
 
-	private boolean includePackage(ClassTestDescriptor classTestDescriptor,
+	private static boolean includePackage(ClassTestDescriptor classTestDescriptor,
 			List<PackageNameFilter> packageNameFilters) {
 
 		// Nested Tests are never filtered out
@@ -65,7 +66,7 @@ class DiscoveryFilterApplier {
 		// @formatter:on
 	}
 
-	private void applyClassNameFilters(List<ClassNameFilter> classNameFilters, TestDescriptor engineDescriptor) {
+	private static void applyClassNameFilters(List<ClassNameFilter> classNameFilters, TestDescriptor engineDescriptor) {
 		if (classNameFilters.isEmpty()) {
 			return;
 		}
@@ -78,7 +79,8 @@ class DiscoveryFilterApplier {
 		engineDescriptor.accept(filteringVisitor);
 	}
 
-	private boolean includeClass(ClassTestDescriptor classTestDescriptor, List<ClassNameFilter> classNameFilters) {
+	private static boolean includeClass(ClassTestDescriptor classTestDescriptor,
+			List<ClassNameFilter> classNameFilters) {
 
 		// Nested Tests are never filtered out
 		if (classTestDescriptor instanceof NestedClassTestDescriptor)
@@ -87,9 +89,9 @@ class DiscoveryFilterApplier {
 		Class<?> testClass = classTestDescriptor.getTestClass();
 
 		// @formatter:off
-        return classNameFilters.stream()
-                .map(filter -> filter.apply(testClass.getName()))
-                .noneMatch(FilterResult::excluded);
+		return classNameFilters.stream()
+				.map(filter -> filter.apply(testClass.getName()))
+				.noneMatch(FilterResult::excluded);
         // @formatter:on
 	}
 

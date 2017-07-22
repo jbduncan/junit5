@@ -50,7 +50,7 @@ public class ToStringBuilder {
 		return this;
 	}
 
-	private String toString(Object obj) {
+	private static String toString(Object obj) {
 		if (obj instanceof CharSequence) {
 			return "'" + obj + "'";
 		}

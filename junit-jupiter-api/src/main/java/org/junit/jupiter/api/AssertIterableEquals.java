@@ -31,6 +31,12 @@ import java.util.function.Supplier;
  */
 class AssertIterableEquals {
 
+	///CLOVER:OFF
+	private AssertIterableEquals() {
+		/* no-op */
+	}
+	///CLOVER:ON
+
 	static void assertIterableEquals(Iterable<?> expected, Iterable<?> actual) {
 		assertIterableEquals(expected, actual, () -> null);
 	}
@@ -40,11 +46,11 @@ class AssertIterableEquals {
 	}
 
 	static void assertIterableEquals(Iterable<?> expected, Iterable<?> actual, Supplier<String> messageSupplier) {
-		assertIterableEquals(expected, actual, new ArrayDeque<>(), messageSupplier);
+		assertIterableEquals(expected, actual, messageSupplier, new ArrayDeque<>());
 	}
 
-	private static void assertIterableEquals(Iterable<?> expected, Iterable<?> actual, Deque<Integer> indexes,
-			Supplier<String> messageSupplier) {
+	private static void assertIterableEquals(Iterable<?> expected, Iterable<?> actual, Supplier<String> messageSupplier,
+			Deque<Integer> indexes) {
 
 		if (expected == actual) {
 			return;
@@ -75,7 +81,7 @@ class AssertIterableEquals {
 	private static void assertIterableElementsEqual(Object expected, Object actual, Deque<Integer> indexes,
 			Supplier<String> messageSupplier) {
 		if (expected instanceof Iterable && actual instanceof Iterable) {
-			assertIterableEquals((Iterable<?>) expected, (Iterable<?>) actual, indexes, messageSupplier);
+			assertIterableEquals((Iterable<?>) expected, (Iterable<?>) actual, messageSupplier, indexes);
 		}
 		else if (!Objects.equals(expected, actual)) {
 			assertIterablesNotNull(expected, actual, indexes, messageSupplier);
