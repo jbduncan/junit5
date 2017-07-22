@@ -437,11 +437,16 @@ subprojects { subproj ->
 				'-XepAllDisabledChecksAsWarnings',
 
 				// generates too many false positives on constructors that call other constructors.
-				// TODO: Once #939 is resolved, see if constructors can be refactored more easily
+				// TODO: once #939 is resolved, see if constructors can be refactored more easily
 				// to not call each other.
 				'-Xep:ConstructorLeaksThis:OFF',
 
-				// we target Java 8
+				// TODO: investigate if this check is worth turning on for production files,
+				// and if so, find places where com.google.errorprone.annotations.@Immutable could
+				// be applied
+				'-Xep:Immutable:OFF',
+
+				// we target Java 8, not Android
 				'-Xep:StaticOrDefaultInterfaceMethod:OFF',
 
 				// we declare redundant `throws <general-exception>, <more-specific-exception>` for
@@ -459,18 +464,20 @@ subprojects { subproj ->
 			options.compilerArgs += [
 				'-XepAllDisabledChecksAsWarnings',
 
-				// these checks are often violated on purpose for testing reasons
 				'-Xep:ClassCanBeStatic:OFF',
 				'-Xep:ConstantField:OFF',
 				'-Xep:ConstructorInvokesOverridable:OFF',
 				'-Xep:ConstructorLeaksThis:OFF',
+
+				// TODO: investigate if its worth turning this check on for tests
+				'-Xep:Immutable:OFF',
+
 				'-Xep:MethodCanBeStatic:OFF',
 				'-Xep:PrivateConstructorForUtilityClass:OFF',
 				'-Xep:StaticOrDefaultInterfaceMethod:OFF',
 				'-Xep:ThrowsUncheckedException:OFF',
 				'-Xep:UngroupedOverloads:OFF',
 
-				// produces lots of warnings, none critical but potentially useful
 				// TODO: investigate if its worth turning this check on for tests
 				'-Xep:Var:OFF'
 			]

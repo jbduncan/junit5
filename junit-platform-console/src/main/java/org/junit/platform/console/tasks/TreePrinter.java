@@ -25,7 +25,6 @@ import java.util.Set;
 
 import com.google.errorprone.annotations.Var;
 
-import org.junit.platform.commons.meta.API;
 import org.junit.platform.commons.util.StringUtils;
 import org.junit.platform.console.options.Theme;
 import org.junit.platform.engine.TestExecutionResult;
