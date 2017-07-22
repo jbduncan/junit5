@@ -15,6 +15,8 @@ import static org.junit.platform.commons.meta.API.Usage.Experimental;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.google.errorprone.annotations.Var;
+
 import org.junit.platform.commons.meta.API;
 import org.junit.platform.commons.util.PreconditionViolationException;
 import org.junit.platform.commons.util.Preconditions;
@@ -60,7 +62,7 @@ public final class TestTag implements Serializable {
 	 * @see StringUtils#doesNotContainIsoControlCharacter(String)
 	 * @see TestTag#create(String)
 	 */
-	public static boolean isValid(String name) {
+	public static boolean isValid(@Var String name) {
 		if (name == null) {
 			return false;
 		}
