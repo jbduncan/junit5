@@ -35,8 +35,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-import com.google.errorprone.annotations.Var;
-
 /**
  * <h3>DISCLAIMER</h3>
  *
@@ -68,7 +66,7 @@ class ClasspathScanner {
 		this.loadClass = loadClass;
 	}
 
-	List<Class<?>> scanForClassesInPackage(@Var String basePackageName, Predicate<Class<?>> classFilter,
+	List<Class<?>> scanForClassesInPackage(String basePackageName, Predicate<Class<?>> classFilter,
 			Predicate<String> classNameFilter) {
 
 		PackageUtils.assertPackageNameIsValid(basePackageName);
@@ -172,7 +170,6 @@ class ClasspathScanner {
 	private static String determineSubpackageName(Path baseDir, Path classFile) {
 		Path relativePath = baseDir.relativize(classFile.getParent());
 		String pathSeparator = baseDir.getFileSystem().getSeparator();
-		@Var
 		String subpackageName = relativePath.toString().replace(pathSeparator, PACKAGE_SEPARATOR_STRING);
 		if (subpackageName.endsWith(pathSeparator)) {
 			// Workaround for JDK bug: https://bugs.openjdk.java.net/browse/JDK-8153248

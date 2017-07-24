@@ -20,8 +20,6 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.google.errorprone.annotations.Var;
-
 import org.junit.jupiter.api.extension.ConditionEvaluationResult;
 import org.junit.jupiter.api.extension.ExecutionCondition;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -117,7 +115,7 @@ public class ConditionEvaluator {
 	 * See {@link Constants#DEACTIVATE_CONDITIONS_PATTERN_PROPERTY_NAME} for
 	 * details on the pattern matching syntax.
 	 */
-	private static String convertToRegEx(@Var String pattern) {
+	private static String convertToRegEx(String pattern) {
 		pattern = Matcher.quoteReplacement(pattern);
 
 		// Match "." against "." and "$" since users may declare a "." instead of a

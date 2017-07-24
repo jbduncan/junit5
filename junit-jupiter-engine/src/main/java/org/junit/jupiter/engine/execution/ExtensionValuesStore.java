@@ -19,8 +19,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 
-import com.google.errorprone.annotations.Var;
-
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.junit.jupiter.api.extension.ExtensionContextException;
@@ -70,7 +68,6 @@ public class ExtensionValuesStore {
 
 	<K, V> Object getOrComputeIfAbsent(Namespace namespace, K key, Function<K, V> defaultCreator) {
 		synchronized (this.monitor) {
-			@Var
 			StoredValue storedValue = getStoredValue(namespace, key);
 			if (storedValue == null) {
 				if (this.parentStore != null) {

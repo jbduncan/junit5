@@ -16,8 +16,6 @@ import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.stream.Stream;
 
-import com.google.errorprone.annotations.Var;
-
 import org.junit.jupiter.api.DynamicContainer;
 import org.junit.jupiter.api.DynamicNode;
 import org.junit.jupiter.api.DynamicTest;
@@ -74,7 +72,6 @@ public class TestFactoryTestDescriptor extends TestMethodTestDescriptor {
 			TestSource source = getSource().orElseThrow(
 				() -> new JUnitException("Illegal state: TestSource must be present"));
 			try (Stream<DynamicNode> dynamicNodeStream = toDynamicNodeStream(testFactoryMethodResult)) {
-				@Var
 				int index = 1;
 				Iterator<DynamicNode> iterator = dynamicNodeStream.iterator();
 				while (iterator.hasNext()) {

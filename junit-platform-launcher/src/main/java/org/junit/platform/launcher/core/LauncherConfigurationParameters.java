@@ -13,8 +13,6 @@ package org.junit.platform.launcher.core;
 import java.util.Map;
 import java.util.Optional;
 
-import com.google.errorprone.annotations.Var;
-
 import org.junit.platform.commons.util.Preconditions;
 import org.junit.platform.commons.util.ToStringBuilder;
 import org.junit.platform.engine.ConfigurationParameters;
@@ -52,7 +50,6 @@ class LauncherConfigurationParameters implements ConfigurationParameters {
 
 	private String getProperty(String key) {
 		Preconditions.notBlank(key, "key must not be null or blank");
-		@Var
 		String value = this.configurationParameters.get(key);
 		if (value == null) {
 			try {
