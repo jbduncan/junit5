@@ -427,7 +427,7 @@ subprojects { subproj ->
 		apply plugin: 'net.ltgt.errorprone'
 
 		dependencies {
-			// TODO: Replace the errorprone dependency with 2.0.22 when it is out.
+			// TODO: Replace the errorprone dependency with 2.0.22 when it is released.
 			// errorprone('com.google.errorprone:error_prone_core:2.0.22')
 			errorprone('com.github.google:error-prone:05869dbbb6')
 			compileOnly('com.google.errorprone:error_prone_annotations:2.0.21')
@@ -457,7 +457,10 @@ subprojects { subproj ->
 				'-Xep:ThrowsUncheckedException:OFF',
 
 				// we do not follow Google Java Style Guide
-				'-Xep:UngroupedOverloads:OFF'
+				'-Xep:UngroupedOverloads:OFF',
+
+				// TODO: investigate if this check is worth turning on for production files
+				'-Xep:Var:OFF'
 			]
 		}
 		compileTestJava {

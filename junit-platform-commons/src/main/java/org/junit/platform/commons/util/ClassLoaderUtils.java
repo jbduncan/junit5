@@ -16,8 +16,6 @@ import java.net.URL;
 import java.security.CodeSource;
 import java.util.Optional;
 
-import com.google.errorprone.annotations.Var;
-
 import org.junit.platform.commons.meta.API;
 
 /**
@@ -63,7 +61,6 @@ public final class ClassLoaderUtils {
 	public static Optional<URL> getLocation(Object object) {
 		Preconditions.notNull(object, "object must not be null");
 		// determine class loader
-		@Var
 		ClassLoader loader = object.getClass().getClassLoader();
 		if (loader == null) {
 			loader = ClassLoader.getSystemClassLoader();
