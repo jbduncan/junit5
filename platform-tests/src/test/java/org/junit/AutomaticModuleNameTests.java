@@ -59,6 +59,7 @@ class AutomaticModuleNameTests {
 		throw new AssertionError("module name is unknown: " + module);
 	}
 
+	@SuppressWarnings("FilesLinesLeak") // stream closed indirectly by JUnit 5
 	static Stream<String> moduleDirectoryNames() throws IOException {
 		// @formatter:off
 		String startOfModuleLine = "include '";

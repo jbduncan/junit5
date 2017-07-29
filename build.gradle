@@ -415,12 +415,6 @@ subprojects { subproj ->
 	// disable, similarly to how we specify "-Xlint" flags above.
 	// Do we want to customise exactly which checks error-prone should run? Or are we happy to just
 	// accept the default checks that each new release brings?
-	//
-	// Also, there are two opt-in checks called
-	// Var (http://errorprone.info/bugpattern/Var) and
-	// Immutable (http://errorprone.info/bugpattern/Immutable).
-	// Would you like me to turn on these checks and find places where their corresponding
-	// annotations could be used?
 	if (org.gradle.api.JavaVersion.current() == org.gradle.api.JavaVersion.VERSION_1_8
 			&& subproj.name != 'documentation') {
 
@@ -444,7 +438,7 @@ subprojects { subproj ->
 				// TODO: investigate if this check is worth turning on for production files,
 				// and if so, find places where com.google.errorprone.annotations.@Immutable could
 				// be applied
-				'-Xep:Immutable:OFF',
+				//'-Xep:Immutable:OFF',
 
 				// we target Java 8, not Android
 				'-Xep:StaticOrDefaultInterfaceMethod:OFF',
@@ -459,8 +453,11 @@ subprojects { subproj ->
 				// we do not follow Google Java Style Guide
 				'-Xep:UngroupedOverloads:OFF',
 
-				// TODO: investigate if this check is worth turning on for production files
+				// TODO: turning this on fails on JDK 9; investigate and consider turning
+				// it on when it no longer fails
 				'-Xep:Var:OFF'
+
+				// TODO: Consider applying other annotations from com.google.errorprone.annotations
 			]
 		}
 		compileTestJava {
@@ -471,18 +468,13 @@ subprojects { subproj ->
 				'-Xep:ConstantField:OFF',
 				'-Xep:ConstructorInvokesOverridable:OFF',
 				'-Xep:ConstructorLeaksThis:OFF',
-
-				// TODO: investigate if its worth turning this check on for tests
 				'-Xep:Immutable:OFF',
-
 				'-Xep:MethodCanBeStatic:OFF',
 				'-Xep:PrivateConstructorForUtilityClass:OFF',
 				'-Xep:StaticOrDefaultInterfaceMethod:OFF',
 				'-Xep:ThrowsUncheckedException:OFF',
 				'-Xep:UngroupedOverloads:OFF',
-
-				// TODO: investigate if its worth turning this check on for tests
-				'-Xep:Var:OFF'
+				'-Xep:Var:OFF' // TODO: consider turning on when it no longer fails on JDK 9
 			]
 		}
 	}
