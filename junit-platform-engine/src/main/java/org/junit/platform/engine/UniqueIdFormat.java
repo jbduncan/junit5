@@ -24,8 +24,6 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.google.errorprone.annotations.Immutable;
-
 import org.junit.platform.commons.JUnitException;
 import org.junit.platform.commons.util.Preconditions;
 import org.junit.platform.engine.UniqueId.Segment;
@@ -36,7 +34,6 @@ import org.junit.platform.engine.UniqueId.Segment;
  *
  * @since 1.0
  */
-@Immutable
 class UniqueIdFormat implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -65,7 +62,6 @@ class UniqueIdFormat implements Serializable {
 	private final char segmentDelimiter;
 	private final char typeValueSeparator;
 	private final Pattern segmentPattern;
-	@SuppressWarnings("Immutable")
 	private final Map<Character, String> encodedCharacterMap = new TreeMap<>();
 
 	UniqueIdFormat(char openSegment, char typeValueSeparator, char closeSegment, char segmentDelimiter) {

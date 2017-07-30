@@ -11,7 +11,7 @@ buildscript {
 		classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.4.1'
 		classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
 		if (org.gradle.api.JavaVersion.current() == org.gradle.api.JavaVersion.VERSION_1_8) {
-			classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.11"
+			classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.0.11'
 		}
 		classpath 'org.ajoberstar:gradle-git:1.7.2'
 		classpath 'org.ajoberstar:gradle-git-publish:0.2.1'
@@ -414,20 +414,24 @@ subprojects { subproj ->
 	// It seems possible to explicitly tell error-prone _which_ checks we want to enable and
 	// disable, similarly to how we specify "-Xlint" flags above.
 	// Do we want to customise exactly which checks error-prone should run? Or are we happy to just
-	// accept the default checks that each new release brings?
+	// accept the default checks that each new release brings, explictly excluding the ones we dislike?
 	if (org.gradle.api.JavaVersion.current() == org.gradle.api.JavaVersion.VERSION_1_8
 			&& subproj.name != 'documentation') {
 
-		apply plugin: 'net.ltgt.errorprone'
+		apply plugin: "net.ltgt.errorprone"
 
 		dependencies {
 			// TODO: Replace the errorprone dependency with 2.0.22 when it is released.
-			// errorprone('com.google.errorprone:error_prone_core:2.0.22')
+			//errorprone('com.google.errorprone:error_prone_core:2.0.22')
 			errorprone('com.github.google:error-prone:05869dbbb6')
-			compileOnly('com.google.errorprone:error_prone_annotations:2.0.21')
+			// TODO: JDK 9 fails to find any of the annotations from the package
+			// com.google.errorprone.annotations, even if they're applied to the JUnit 5 code base.
+			// Apply a select subset of them once they work properly with JDK 9.
+			//compileOnly('com.google.errorprone:error_prone_annotations:2.0.21')
 		}
 		compileJava {
 			options.compilerArgs += [
+				// enable experimental checks
 				'-XepAllDisabledChecksAsWarnings',
 
 				// generates too many false positives on constructors that call other constructors.
@@ -435,10 +439,10 @@ subprojects { subproj ->
 				// to not call each other.
 				'-Xep:ConstructorLeaksThis:OFF',
 
-				// TODO: investigate if this check is worth turning on for production files,
-				// and if so, find places where com.google.errorprone.annotations.@Immutable could
-				// be applied
-				//'-Xep:Immutable:OFF',
+				// TODO: turning this check on and applying @Immutable to immutable classes causes
+				// JDK 9 to fail to compile; investigate and consider turning it on when it no
+				// longer fails
+				'-Xep:Immutable:OFF',
 
 				// we target Java 8, not Android
 				'-Xep:StaticOrDefaultInterfaceMethod:OFF',
@@ -453,11 +457,10 @@ subprojects { subproj ->
 				// we do not follow Google Java Style Guide
 				'-Xep:UngroupedOverloads:OFF',
 
-				// TODO: turning this on fails on JDK 9; investigate and consider turning
-				// it on when it no longer fails
+				// TODO: turning this check on and applying @Var to non-final variables causes
+				// JDK 9 to fail to compile; investigate and consider turning it on when it no
+				// longer fails
 				'-Xep:Var:OFF'
-
-				// TODO: Consider applying other annotations from com.google.errorprone.annotations
 			]
 		}
 		compileTestJava {
@@ -470,11 +473,14 @@ subprojects { subproj ->
 				'-Xep:ConstructorLeaksThis:OFF',
 				'-Xep:Immutable:OFF',
 				'-Xep:MethodCanBeStatic:OFF',
+				'-Xep:MultipleTopLevelClasses:OFF',
 				'-Xep:PrivateConstructorForUtilityClass:OFF',
 				'-Xep:StaticOrDefaultInterfaceMethod:OFF',
 				'-Xep:ThrowsUncheckedException:OFF',
 				'-Xep:UngroupedOverloads:OFF',
-				'-Xep:Var:OFF' // TODO: consider turning on when it no longer fails on JDK 9
+
+				// TODO: consider turning on when it no longer fails on JDK 9
+				'-Xep:Var:OFF'
 			]
 		}
 	}

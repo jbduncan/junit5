@@ -20,8 +20,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import com.google.errorprone.annotations.Immutable;
-
 import org.junit.platform.commons.JUnitException;
 import org.junit.platform.commons.meta.API;
 import org.junit.platform.commons.util.Preconditions;
@@ -36,7 +34,6 @@ import org.junit.platform.commons.util.ToStringBuilder;
  * @since 1.0
  */
 @API(Experimental)
-@Immutable
 public class UniqueId implements Cloneable, Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -86,8 +83,6 @@ public class UniqueId implements Cloneable, Serializable {
 	}
 
 	private final UniqueIdFormat uniqueIdFormat;
-	// segments is unmodifiable and considered owned by the current instance
-	@SuppressWarnings("Immutable")
 	private final List<Segment> segments;
 
 	private UniqueId(UniqueIdFormat uniqueIdFormat, Segment segment) {
