@@ -27,11 +27,11 @@ public class DemoHierarchicalTestDescriptor extends AbstractTestDescriptor imple
 	private boolean skipped;
 
 	DemoHierarchicalTestDescriptor(UniqueId uniqueId, String displayName, Runnable executeBlock) {
-		this(uniqueId, displayName, executeBlock, null);
+		this(uniqueId, displayName, null, executeBlock);
 	}
 
-	public DemoHierarchicalTestDescriptor(UniqueId uniqueId, String displayName, Runnable executeBlock,
-			TestSource source) {
+	public DemoHierarchicalTestDescriptor(UniqueId uniqueId, String displayName, TestSource source,
+			Runnable executeBlock) {
 		super(uniqueId, displayName, source);
 		this.executeBlock = executeBlock;
 	}

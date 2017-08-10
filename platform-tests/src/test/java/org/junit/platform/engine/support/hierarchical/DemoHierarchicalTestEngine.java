@@ -46,19 +46,19 @@ public final class DemoHierarchicalTestEngine extends HierarchicalTestEngine<Dem
 	}
 
 	public DemoHierarchicalTestDescriptor addTest(String uniqueName, Runnable executeBlock) {
-		return addTest(uniqueName, executeBlock, uniqueName);
+		return addTest(uniqueName, uniqueName, executeBlock);
 	}
 
 	public DemoHierarchicalTestDescriptor addTest(Method testMethod, Runnable executeBlock) {
 		UniqueId uniqueId = engineDescriptor.getUniqueId().append("test", testMethod.getName());
 		MethodSource source = new MethodSource(testMethod);
 		DemoHierarchicalTestDescriptor child = new DemoHierarchicalTestDescriptor(uniqueId, testMethod.getName(),
-			executeBlock, source);
+			source, executeBlock);
 		engineDescriptor.addChild(child);
 		return child;
 	}
 
-	public DemoHierarchicalTestDescriptor addTest(String uniqueName, Runnable executeBlock, String displayName) {
+	public DemoHierarchicalTestDescriptor addTest(String uniqueName, String displayName, Runnable executeBlock) {
 		UniqueId uniqueId = engineDescriptor.getUniqueId().append("test", uniqueName);
 		DemoHierarchicalTestDescriptor child = new DemoHierarchicalTestDescriptor(uniqueId, displayName, executeBlock);
 		engineDescriptor.addChild(child);
