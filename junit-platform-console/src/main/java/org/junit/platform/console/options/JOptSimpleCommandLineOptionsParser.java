@@ -57,7 +57,7 @@ public class JOptSimpleCommandLineOptionsParser implements CommandLineOptionsPar
 		}
 	}
 
-	private static AvailableOptions getAvailableOptions() {
+	private AvailableOptions getAvailableOptions() {
 		return new AvailableOptions();
 	}
 

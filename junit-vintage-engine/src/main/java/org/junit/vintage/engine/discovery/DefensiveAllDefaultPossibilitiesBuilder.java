@@ -92,7 +92,7 @@ class DefensiveAllDefaultPossibilitiesBuilder extends AllDefaultPossibilitiesBui
 			return null;
 		}
 
-		private static boolean containsTestMethods(Class<?> testClass) {
+		private boolean containsTestMethods(Class<?> testClass) {
 			return ReflectionUtils.isMethodPresent(testClass, isPotentialJUnit4TestMethod);
 		}
 	}

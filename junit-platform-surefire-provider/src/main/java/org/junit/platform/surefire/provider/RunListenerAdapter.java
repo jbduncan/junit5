@@ -98,7 +98,7 @@ final class RunListenerAdapter implements TestExecutionListener {
 			TestIdentifier::getLegacyReportingName).orElse("<unrooted>");
 	}
 
-	private static Optional<String> getClassName(TestIdentifier testIdentifier) {
+	private Optional<String> getClassName(TestIdentifier testIdentifier) {
 		TestSource testSource = testIdentifier.getSource().orElse(null);
 		if (testSource instanceof ClassSource) {
 			return Optional.of(((ClassSource) testSource).getJavaClass().getName());
@@ -109,7 +109,7 @@ final class RunListenerAdapter implements TestExecutionListener {
 		return Optional.empty();
 	}
 
-	private static Optional<String> getMethodName(TestIdentifier testIdentifier) {
+	private Optional<String> getMethodName(TestIdentifier testIdentifier) {
 		TestSource testSource = testIdentifier.getSource().orElse(null);
 		if (testSource instanceof MethodSource) {
 			return Optional.of(((MethodSource) testSource).getMethodName());

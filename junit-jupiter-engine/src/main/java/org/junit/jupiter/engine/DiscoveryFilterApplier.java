@@ -36,8 +36,7 @@ class DiscoveryFilterApplier {
 		applyPackageNameFilters(discoveryRequest.getFiltersByType(PackageNameFilter.class), engineDescriptor);
 	}
 
-	private static void applyPackageNameFilters(List<PackageNameFilter> packageNameFilters,
-			TestDescriptor engineDescriptor) {
+	private void applyPackageNameFilters(List<PackageNameFilter> packageNameFilters, TestDescriptor engineDescriptor) {
 		if (packageNameFilters.isEmpty()) {
 			return;
 		}
@@ -50,7 +49,7 @@ class DiscoveryFilterApplier {
 		engineDescriptor.accept(filteringVisitor);
 	}
 
-	private static boolean includePackage(ClassTestDescriptor classTestDescriptor,
+	private boolean includePackage(ClassTestDescriptor classTestDescriptor,
 			List<PackageNameFilter> packageNameFilters) {
 
 		// Nested Tests are never filtered out
@@ -66,7 +65,7 @@ class DiscoveryFilterApplier {
 		// @formatter:on
 	}
 
-	private static void applyClassNameFilters(List<ClassNameFilter> classNameFilters, TestDescriptor engineDescriptor) {
+	private void applyClassNameFilters(List<ClassNameFilter> classNameFilters, TestDescriptor engineDescriptor) {
 		if (classNameFilters.isEmpty()) {
 			return;
 		}
@@ -79,8 +78,7 @@ class DiscoveryFilterApplier {
 		engineDescriptor.accept(filteringVisitor);
 	}
 
-	private static boolean includeClass(ClassTestDescriptor classTestDescriptor,
-			List<ClassNameFilter> classNameFilters) {
+	private boolean includeClass(ClassTestDescriptor classTestDescriptor, List<ClassNameFilter> classNameFilters) {
 
 		// Nested Tests are never filtered out
 		if (classTestDescriptor instanceof NestedClassTestDescriptor)

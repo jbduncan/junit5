@@ -74,7 +74,7 @@ public class VintageTestEngine implements TestEngine {
 		engineExecutionListener.executionFinished(engineTestDescriptor, successful());
 	}
 
-	private static void executeAllChildren(RunnerExecutor runnerExecutor, TestDescriptor engineTestDescriptor) {
+	private void executeAllChildren(RunnerExecutor runnerExecutor, TestDescriptor engineTestDescriptor) {
 		// @formatter:off
 		engineTestDescriptor.getChildren()
 				.stream()

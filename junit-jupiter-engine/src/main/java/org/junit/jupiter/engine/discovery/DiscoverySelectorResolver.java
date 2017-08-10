@@ -67,11 +67,11 @@ public class DiscoverySelectorResolver {
 		pruneTree(engineDescriptor);
 	}
 
-	private static void pruneTree(TestDescriptor rootDescriptor) {
+	private void pruneTree(TestDescriptor rootDescriptor) {
 		rootDescriptor.accept(TestDescriptor::prune);
 	}
 
-	private static JavaElementsResolver createJavaElementsResolver(TestDescriptor engineDescriptor) {
+	private JavaElementsResolver createJavaElementsResolver(TestDescriptor engineDescriptor) {
 		Set<ElementResolver> resolvers = new LinkedHashSet<>();
 		resolvers.add(new TestContainerResolver());
 		resolvers.add(new NestedTestsResolver());

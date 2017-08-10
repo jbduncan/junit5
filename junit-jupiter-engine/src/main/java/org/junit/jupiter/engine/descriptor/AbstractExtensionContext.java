@@ -44,7 +44,7 @@ abstract class AbstractExtensionContext<T extends TestDescriptor> implements Ext
 		this.valuesStore = createStore(parent);
 	}
 
-	private static ExtensionValuesStore createStore(ExtensionContext parent) {
+	private ExtensionValuesStore createStore(ExtensionContext parent) {
 		ExtensionValuesStore parentStore = null;
 		if (parent != null) {
 			parentStore = ((AbstractExtensionContext<?>) parent).valuesStore;

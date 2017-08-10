@@ -108,7 +108,7 @@ class XmlReportsWritingListener implements TestExecutionListener {
 		}
 	}
 
-	private static boolean isARoot(TestIdentifier testIdentifier) {
+	private boolean isARoot(TestIdentifier testIdentifier) {
 		return !testIdentifier.getParentId().isPresent();
 	}
 

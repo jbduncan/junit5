@@ -51,14 +51,14 @@ class RepeatedTestExtension implements TestTemplateInvocationContextProvider {
 		// @formatter:on
 	}
 
-	private static int totalRepetitions(RepeatedTest repeatedTest, Method method) {
+	private int totalRepetitions(RepeatedTest repeatedTest, Method method) {
 		int repetitions = repeatedTest.value();
 		Preconditions.condition(repetitions > 0, () -> String.format(
 			"Configuration error: @RepeatedTest on method [%s] must be declared with a positive 'value'.", method));
 		return repetitions;
 	}
 
-	private static RepeatedTestDisplayNameFormatter displayNameFormatter(RepeatedTest repeatedTest, Method method,
+	private RepeatedTestDisplayNameFormatter displayNameFormatter(RepeatedTest repeatedTest, Method method,
 			String displayName) {
 		String pattern = Preconditions.notBlank(repeatedTest.name().trim(), () -> String.format(
 			"Configuration error: @RepeatedTest on method [%s] must be declared with a non-empty name.", method));

@@ -62,14 +62,14 @@ public class JupiterTestEngine extends HierarchicalTestEngine<JupiterEngineExecu
 		return engineDescriptor;
 	}
 
-	private static void resolveDiscoveryRequest(EngineDiscoveryRequest discoveryRequest,
+	private void resolveDiscoveryRequest(EngineDiscoveryRequest discoveryRequest,
 			JupiterEngineDescriptor engineDescriptor) {
 		DiscoverySelectorResolver resolver = new DiscoverySelectorResolver();
 		resolver.resolveSelectors(discoveryRequest, engineDescriptor);
 		applyDiscoveryFilters(discoveryRequest, engineDescriptor);
 	}
 
-	private static void applyDiscoveryFilters(EngineDiscoveryRequest discoveryRequest,
+	private void applyDiscoveryFilters(EngineDiscoveryRequest discoveryRequest,
 			JupiterEngineDescriptor engineDescriptor) {
 		new DiscoveryFilterApplier().applyAllFilters(discoveryRequest, engineDescriptor);
 	}

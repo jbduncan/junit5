@@ -44,7 +44,7 @@ public class UniqueIdStringifier implements Function<Serializable, String> {
 		return encodeBase64(serialize(uniqueId));
 	}
 
-	private static byte[] serialize(Serializable uniqueId) {
+	private byte[] serialize(Serializable uniqueId) {
 		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 		try (ObjectOutputStream out = new ObjectOutputStream(byteStream)) {
 			out.writeObject(uniqueId);
@@ -55,7 +55,7 @@ public class UniqueIdStringifier implements Function<Serializable, String> {
 		return byteStream.toByteArray();
 	}
 
-	private static String encodeBase64(byte[] bytes) {
+	private String encodeBase64(byte[] bytes) {
 		return new String(Base64.getEncoder().encode(bytes), CHARSET);
 	}
 

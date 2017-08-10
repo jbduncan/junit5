@@ -29,7 +29,7 @@ class MethodSelectorResolver implements DiscoverySelectorResolver {
 		request.getSelectorsByType(MethodSelector.class).forEach(selector -> resolve(selector, collector));
 	}
 
-	private static void resolve(MethodSelector selector, TestClassCollector collector) {
+	private void resolve(MethodSelector selector, TestClassCollector collector) {
 		Class<?> testClass = selector.getJavaClass();
 		Method testMethod = selector.getJavaMethod();
 		Description methodDescription = Description.createTestDescription(testClass, testMethod.getName());

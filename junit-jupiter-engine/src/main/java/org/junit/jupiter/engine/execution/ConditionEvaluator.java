@@ -69,7 +69,7 @@ public class ConditionEvaluator {
 		// @formatter:on
 	}
 
-	private static ConditionEvaluationResult evaluate(ExecutionCondition condition, ExtensionContext context) {
+	private ConditionEvaluationResult evaluate(ExecutionCondition condition, ExtensionContext context) {
 		try {
 			ConditionEvaluationResult result = condition.evaluateExecutionCondition(context);
 			logResult(condition.getClass(), result);
@@ -80,17 +80,17 @@ public class ConditionEvaluator {
 		}
 	}
 
-	private static void logResult(Class<?> conditionType, ConditionEvaluationResult result) {
+	private void logResult(Class<?> conditionType, ConditionEvaluationResult result) {
 		LOG.finer(() -> format("Evaluation of condition [%s] resulted in: %s", conditionType.getName(), result));
 	}
 
-	private static ConditionEvaluationException evaluationException(Class<?> conditionType, Exception ex) {
+	private ConditionEvaluationException evaluationException(Class<?> conditionType, Exception ex) {
 		String cause = StringUtils.isNotBlank(ex.getMessage()) ? ": " + ex.getMessage() : "";
 		return new ConditionEvaluationException(
 			format("Failed to evaluate condition [%s]%s", conditionType.getName(), cause), ex);
 	}
 
-	private static Predicate<Object> conditionIsActivated(ConfigurationParameters configurationParameters) {
+	private Predicate<Object> conditionIsActivated(ConfigurationParameters configurationParameters) {
 		String patternString = getDeactivatePatternString(configurationParameters);
 		if (patternString != null) {
 			if (DEACTIVATE_ALL_CONDITIONS_PATTERN.equals(patternString)) {
@@ -102,7 +102,7 @@ public class ConditionEvaluator {
 		return alwaysActivated;
 	}
 
-	private static String getDeactivatePatternString(ConfigurationParameters configurationParameters) {
+	private String getDeactivatePatternString(ConfigurationParameters configurationParameters) {
 		// @formatter:off
 		return configurationParameters.get(DEACTIVATE_CONDITIONS_PATTERN_PROPERTY_NAME)
 				.filter(StringUtils::isNotBlank)
@@ -115,7 +115,7 @@ public class ConditionEvaluator {
 	 * See {@link Constants#DEACTIVATE_CONDITIONS_PATTERN_PROPERTY_NAME} for
 	 * details on the pattern matching syntax.
 	 */
-	private static String convertToRegEx(String pattern) {
+	private String convertToRegEx(String pattern) {
 		pattern = Matcher.quoteReplacement(pattern);
 
 		// Match "." against "." and "$" since users may declare a "." instead of a

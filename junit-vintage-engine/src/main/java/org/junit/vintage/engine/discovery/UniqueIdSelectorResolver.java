@@ -41,7 +41,7 @@ class UniqueIdSelectorResolver implements DiscoverySelectorResolver {
 				.stream()
 				.map(UniqueIdSelector::getUniqueId)
 				.filter(this::isNotEngineId)
-				.filter(UniqueIdSelectorResolver::isForVintageEngine)
+				.filter(this::isForVintageEngine)
 				.forEach(uniqueId -> resolveIntoFilteredTestClass(uniqueId, collector));
 		// @formatter:on
 	}
@@ -55,7 +55,7 @@ class UniqueIdSelectorResolver implements DiscoverySelectorResolver {
 		return !isEngineId;
 	}
 
-	private static boolean isForVintageEngine(UniqueId uniqueId) {
+	private boolean isForVintageEngine(UniqueId uniqueId) {
 		// @formatter:off
 		return uniqueId.getEngineId()
 				.map(engineId -> engineId.equals(ENGINE_ID))

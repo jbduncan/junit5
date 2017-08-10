@@ -71,7 +71,7 @@ class Root {
 		acceptInAllTestEngines(TestDescriptor::prune);
 	}
 
-	private static boolean isExcluded(TestDescriptor descriptor, Filter<TestDescriptor> postDiscoveryFilter) {
+	private boolean isExcluded(TestDescriptor descriptor, Filter<TestDescriptor> postDiscoveryFilter) {
 		return descriptor.getChildren().isEmpty() && postDiscoveryFilter.apply(descriptor).excluded();
 	}
 
