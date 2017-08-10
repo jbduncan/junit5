@@ -90,7 +90,7 @@ class DiscoveryFilterApplier {
 		return classNameFilters.stream()
 				.map(filter -> filter.apply(testClass.getName()))
 				.noneMatch(FilterResult::excluded);
-        // @formatter:on
+		// @formatter:on
 	}
 
 }

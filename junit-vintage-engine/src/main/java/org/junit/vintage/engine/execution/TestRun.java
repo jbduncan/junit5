@@ -54,8 +54,11 @@ class TestRun {
 		runnerDescendants = new LinkedHashSet<>(runnerTestDescriptor.getDescendants());
 		// @formatter:off
 		descriptionToDescriptors = concat(Stream.of(runnerTestDescriptor), runnerDescendants.stream())
-			.map(VintageTestDescriptor.class::cast)
-			.collect(groupingBy(VintageTestDescriptor::getDescription, HashMap::new, toCollection(ArrayList::new)));
+				.map(VintageTestDescriptor.class::cast)
+				.collect(groupingBy(
+						VintageTestDescriptor::getDescription,
+						HashMap::new,
+						toCollection(ArrayList::new)));
 		// @formatter:on
 	}
 
@@ -96,7 +99,7 @@ class TestRun {
 		// @formatter:off
 		return descriptors.stream()
 				.filter(testDescriptor -> {
-					// @marcphillip: why are Descriptions compared by equality?
+					// @marcphillip: why are Descriptions equated by reference and not using .equals()?
 					@SuppressWarnings("ReferenceEquality")
 					boolean result = (description == testDescriptor.getDescription());
 					return result;
