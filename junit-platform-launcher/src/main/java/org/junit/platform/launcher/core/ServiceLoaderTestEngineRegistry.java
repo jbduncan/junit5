@@ -32,7 +32,7 @@ class ServiceLoaderTestEngineRegistry {
 		return testEngines;
 	}
 
-	private static String createDiscoveredTestEnginesMessage(Iterable<TestEngine> testEngines) {
+	private String createDiscoveredTestEnginesMessage(Iterable<TestEngine> testEngines) {
 		List<String> details = new ArrayList<>();
 		for (TestEngine engine : testEngines) {
 			details.add(String.format("%s (%s)", engine.getId(), String.join(", ", computeAttributes(engine))));
@@ -43,7 +43,7 @@ class ServiceLoaderTestEngineRegistry {
 		return "Discovered TestEngines with IDs: [" + String.join(", ", details) + "]";
 	}
 
-	private static List<String> computeAttributes(TestEngine engine) {
+	private List<String> computeAttributes(TestEngine engine) {
 		List<String> attributes = new ArrayList<>();
 		engine.getGroupId().ifPresent(groupId -> attributes.add("group ID: " + groupId));
 		engine.getArtifactId().ifPresent(artifactId -> attributes.add("artifact ID: " + artifactId));

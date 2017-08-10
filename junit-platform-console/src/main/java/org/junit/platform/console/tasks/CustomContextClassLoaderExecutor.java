@@ -33,7 +33,7 @@ class CustomContextClassLoaderExecutor {
 		return callable.call();
 	}
 
-	private static <T> T replaceThreadContextClassLoaderAndInvoke(ClassLoader customClassLoader, Callable<T> callable)
+	private <T> T replaceThreadContextClassLoaderAndInvoke(ClassLoader customClassLoader, Callable<T> callable)
 			throws Exception {
 		ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
 		try {

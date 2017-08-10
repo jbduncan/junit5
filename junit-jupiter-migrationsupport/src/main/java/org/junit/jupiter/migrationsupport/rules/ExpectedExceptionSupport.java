@@ -72,7 +72,7 @@ public class ExpectedExceptionSupport implements AfterEachCallback, TestExecutio
 		}
 	}
 
-	private static Store getStore(ExtensionContext context) {
+	private Store getStore(ExtensionContext context) {
 		return context.getStore(Namespace.create(ExpectedExceptionSupport.class, context.getUniqueId()));
 	}
 

@@ -84,7 +84,7 @@ class JUnitPlatformRunnerListener implements TestExecutionListener {
 		System.out.println(entry);
 	}
 
-	private static Failure toFailure(TestExecutionResult testExecutionResult, Description description) {
+	private Failure toFailure(TestExecutionResult testExecutionResult, Description description) {
 		return new Failure(description, testExecutionResult.getThrowable().orElse(null));
 	}
 

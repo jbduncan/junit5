@@ -198,8 +198,7 @@ class JavaElementsResolver {
 		return (Optional<TestDescriptor>) this.engineDescriptor.findByUniqueId(uniqueId);
 	}
 
-	private static void logMultipleTestDescriptorsForSingleElement(AnnotatedElement element,
-			Set<TestDescriptor> descriptors) {
+	private void logMultipleTestDescriptorsForSingleElement(AnnotatedElement element, Set<TestDescriptor> descriptors) {
 		if (descriptors.size() > 1 && element instanceof Method) {
 			Method method = (Method) element;
 			logger.warning(String.format(

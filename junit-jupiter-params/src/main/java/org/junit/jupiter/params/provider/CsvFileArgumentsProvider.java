@@ -67,7 +67,7 @@ class CsvFileArgumentsProvider implements ArgumentsProvider, AnnotationConsumer<
 		return Arrays.stream(resources)
 				.map(resource -> openInputStream(context, resource))
 				.map(this::createCsvParser)
-				.flatMap(CsvFileArgumentsProvider::toStream);
+				.flatMap(this::toStream);
 		// @formatter:on
 	}
 
@@ -83,7 +83,7 @@ class CsvFileArgumentsProvider implements ArgumentsProvider, AnnotationConsumer<
 		return csvParser;
 	}
 
-	private static Stream<Arguments> toStream(CsvParser csvParser) {
+	private Stream<Arguments> toStream(CsvParser csvParser) {
 		return stream(spliteratorUnknownSize(new CsvParserIterator(csvParser), Spliterator.ORDERED), false) //
 				.onClose(csvParser::stopParsing);
 	}

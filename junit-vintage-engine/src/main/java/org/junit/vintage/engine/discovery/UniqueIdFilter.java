@@ -45,7 +45,7 @@ class UniqueIdFilter extends RunnerTestDescriptorAwareFilter {
 		path = determinePath(runnerTestDescriptor, identifiedTestDescriptor);
 	}
 
-	private static Deque<Description> determinePath(RunnerTestDescriptor runnerTestDescriptor,
+	private Deque<Description> determinePath(RunnerTestDescriptor runnerTestDescriptor,
 			Optional<? extends TestDescriptor> identifiedTestDescriptor) {
 		Deque<Description> path = new ArrayDeque<>();
 		Optional<? extends TestDescriptor> current = identifiedTestDescriptor;

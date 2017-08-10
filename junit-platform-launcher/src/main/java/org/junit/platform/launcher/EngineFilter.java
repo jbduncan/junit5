@@ -104,7 +104,7 @@ public class EngineFilter implements Filter<TestEngine> {
 	private final List<String> engineIds;
 	private final Type type;
 
-	private EngineFilter(List<String> engineIds, Type type) {
+	EngineFilter(List<String> engineIds, Type type) {
 		this.engineIds = validateAndTrim(engineIds);
 		this.type = type;
 	}
@@ -153,7 +153,7 @@ public class EngineFilter implements Filter<TestEngine> {
 
 		private final String verb;
 
-		Type(String verb) {
+		private Type(String verb) {
 			this.verb = verb;
 		}
 

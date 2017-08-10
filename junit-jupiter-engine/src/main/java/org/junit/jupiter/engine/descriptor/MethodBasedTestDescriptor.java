@@ -29,12 +29,11 @@ abstract class MethodBasedTestDescriptor extends JupiterTestDescriptor {
 	private final Method testMethod;
 
 	MethodBasedTestDescriptor(UniqueId uniqueId, Class<?> testClass, Method testMethod) {
-		this(uniqueId, testClass, testMethod,
-			determineDisplayName(Preconditions.notNull(testMethod, "Method must not be null"),
-				MethodBasedTestDescriptor::generateDefaultDisplayName));
+		this(uniqueId, determineDisplayName(Preconditions.notNull(testMethod, "Method must not be null"),
+			MethodBasedTestDescriptor::generateDefaultDisplayName), testClass, testMethod);
 	}
 
-	MethodBasedTestDescriptor(UniqueId uniqueId, Class<?> testClass, Method testMethod, String displayName) {
+	MethodBasedTestDescriptor(UniqueId uniqueId, String displayName, Class<?> testClass, Method testMethod) {
 		super(uniqueId, displayName, new MethodSource(Preconditions.notNull(testMethod, "Method must not be null")));
 
 		this.testClass = Preconditions.notNull(testClass, "Class must not be null");

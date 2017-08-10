@@ -143,7 +143,7 @@ class RunListenerAdapter extends RunListener {
 		fireExecutionFinishedIncludingAncestorsWithoutPendingChildren(testDescriptor.getParent());
 	}
 
-	private static String determineReasonForIgnoredTest(Description description) {
+	private String determineReasonForIgnoredTest(Description description) {
 		Ignore ignoreAnnotation = description.getAnnotation(Ignore.class);
 		return Optional.ofNullable(ignoreAnnotation).map(Ignore::value).orElse("<unknown>");
 	}

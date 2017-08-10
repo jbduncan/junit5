@@ -114,7 +114,7 @@ class UniqueIdFormat implements Serializable {
 		return typeOrValue;
 	}
 
-	private static void checkDoesNotContain(String typeOrValue, char forbiddenCharacter) {
+	private void checkDoesNotContain(String typeOrValue, char forbiddenCharacter) {
 		Preconditions.condition(typeOrValue.indexOf(forbiddenCharacter) < 0,
 			() -> String.format("type or value '%s' must not contain '%s'", typeOrValue, forbiddenCharacter));
 	}
@@ -148,7 +148,7 @@ class UniqueIdFormat implements Serializable {
 		return builder.toString();
 	}
 
-	private static String decode(String s) {
+	private String decode(String s) {
 		try {
 			return URLDecoder.decode(s, "UTF-8");
 		}

@@ -44,8 +44,7 @@ class JUnitPlatformTestTree {
 
 	JUnitPlatformTestTree(TestPlan plan, Class<?> testClass) {
 		this.plan = plan;
-		this.nameExtractor = useTechnicalNames(testClass) ? JUnitPlatformTestTree::getTechnicalName
-				: TestIdentifier::getDisplayName;
+		this.nameExtractor = useTechnicalNames(testClass) ? this::getTechnicalName : TestIdentifier::getDisplayName;
 		this.suiteDescription = generateSuiteDescription(plan, testClass);
 	}
 
@@ -94,7 +93,7 @@ class JUnitPlatformTestTree {
 		return Description.createSuiteDescription(name, identifier.getUniqueId());
 	}
 
-	private static String getTechnicalName(TestIdentifier testIdentifier) {
+	private String getTechnicalName(TestIdentifier testIdentifier) {
 		Optional<TestSource> optionalSource = testIdentifier.getSource();
 		if (optionalSource.isPresent()) {
 			TestSource source = optionalSource.get();
