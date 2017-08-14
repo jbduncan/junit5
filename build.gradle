@@ -417,7 +417,6 @@ subprojects { subproj ->
 	// accept the default checks that each new release brings, explictly excluding the ones we dislike?
 	if (org.gradle.api.JavaVersion.current() == org.gradle.api.JavaVersion.VERSION_1_8
 			&& subproj.name != 'documentation') {
-
 		apply plugin: "net.ltgt.errorprone"
 
 		dependencies {
@@ -427,7 +426,7 @@ subprojects { subproj ->
 			// TODO: JDK 9 fails to find any of the annotations from the package
 			// com.google.errorprone.annotations, even if they're applied to the JUnit 5 code base.
 			// Apply a select subset of them once they work properly with JDK 9.
-			//compileOnly('com.google.errorprone:error_prone_annotations:2.0.21')
+			//compileOnly('com.google.errorprone:error_prone_annotations:2.0.22')
 		}
 		compileJava {
 			options.compilerArgs += [

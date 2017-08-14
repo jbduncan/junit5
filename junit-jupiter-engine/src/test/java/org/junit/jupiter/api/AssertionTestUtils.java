@@ -18,6 +18,12 @@ import org.opentest4j.ValueWrapper;
 
 class AssertionTestUtils {
 
+	///CLOVER:OFF
+	private AssertionTestUtils() {
+		/* no-op */
+	}
+	///CLOVER:ON
+
 	static void expectAssertionFailedError() {
 		throw new AssertionError("Should have thrown an " + AssertionFailedError.class.getName());
 	}
