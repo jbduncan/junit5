@@ -34,7 +34,6 @@ class AssertThrows {
 	}
 	///CLOVER:ON
 
-	@SuppressWarnings("unchecked")
 	static <T extends Throwable> T assertThrows(Class<T> expectedType, Executable executable) {
 		return assertThrows(expectedType, executable, () -> null);
 	}

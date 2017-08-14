@@ -41,7 +41,7 @@ class CsvFileArgumentsProvider implements ArgumentsProvider, AnnotationConsumer<
 	private CsvParserSettings settings;
 
 	CsvFileArgumentsProvider() {
-		this.inputStreamProvider = Class::getResourceAsStream;
+		this(Class::getResourceAsStream);
 	}
 
 	CsvFileArgumentsProvider(BiFunction<Class<?>, String, InputStream> inputStreamProvider) {

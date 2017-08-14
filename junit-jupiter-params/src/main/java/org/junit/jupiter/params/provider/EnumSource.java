@@ -119,7 +119,7 @@ public @interface EnumSource {
 		@SuppressWarnings("ImmutableEnumChecker") // selectors are stateless
 		private final BiPredicate<String, Set<String>> selector;
 
-		Mode(BiConsumer<EnumSource, Set<String>> validator, BiPredicate<String, Set<String>> selector) {
+		private Mode(BiConsumer<EnumSource, Set<String>> validator, BiPredicate<String, Set<String>> selector) {
 			this.validator = validator;
 			this.selector = selector;
 		}
