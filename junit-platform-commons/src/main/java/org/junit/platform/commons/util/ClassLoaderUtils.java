@@ -70,7 +70,8 @@ public final class ClassLoaderUtils {
 		}
 		// try finding resource by name
 		if (loader != null) {
-			String name = object.getClass().getName().replace(".", "/") + ".class";
+			String name = object.getClass().getName();
+			name = name.replace(".", "/") + ".class";
 			try {
 				return Optional.ofNullable(loader.getResource(name));
 			}
