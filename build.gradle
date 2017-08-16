@@ -417,7 +417,7 @@ subprojects { subproj ->
 		dependencies {
 			// TODO: Replace the errorprone dependency with 2.0.22 when it is released.
 			//errorprone('com.google.errorprone:error_prone_core:2.0.22')
-			errorprone('com.github.google:error-prone:05869dbbb6')
+			errorprone('com.github.google:error-prone:912b1535e7')
 			// TODO: JDK 9 fails to find any of the annotations from the package
 			// com.google.errorprone.annotations, even if they're applied to the JUnit 5 code base.
 			// Apply a select subset of them once they work properly with JDK 9.
