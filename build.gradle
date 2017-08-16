@@ -10,7 +10,7 @@ buildscript {
 	dependencies {
 		classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.4.1'
 		classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
-		if (org.gradle.api.JavaVersion.current() == org.gradle.api.JavaVersion.VERSION_1_8) {
+		if (JavaVersion.current() == JavaVersion.VERSION_1_8) {
 			classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.0.11'
 		}
 		classpath 'org.ajoberstar:gradle-git:1.7.2'
@@ -415,8 +415,7 @@ subprojects { subproj ->
 	// disable, similarly to how we specify "-Xlint" flags above.
 	// Do we want to customise exactly which checks error-prone should run? Or are we happy to just
 	// accept the default checks that each new release brings, explictly excluding the ones we dislike?
-	if (org.gradle.api.JavaVersion.current() == org.gradle.api.JavaVersion.VERSION_1_8
-			&& subproj.name != 'documentation') {
+	if (JavaVersion.current() == JavaVersion.VERSION_1_8 && subproj.name != 'documentation') {
 		apply plugin: "net.ltgt.errorprone"
 
 		dependencies {
@@ -501,7 +500,7 @@ subprojects { subproj ->
 			licenseHeaderFile headerFile, '(package|import) '
 			importOrderFile importOrderConfigFile
 			eclipse().configFile javaFormatterConfigFile
-			if (org.gradle.api.JavaVersion.current() == org.gradle.api.JavaVersion.VERSION_1_8) {
+			if (JavaVersion.current() == JavaVersion.VERSION_1_8) {
 				removeUnusedImports()
 			}
 
