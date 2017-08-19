@@ -23,12 +23,6 @@ import java.util.function.Supplier;
  */
 class AssertNotNull {
 
-	///CLOVER:OFF
-	private AssertNotNull() {
-		/* no-op */
-	}
-	///CLOVER:ON
-
 	static void assertNotNull(Object actual) {
 		assertNotNull(actual, () -> null);
 	}

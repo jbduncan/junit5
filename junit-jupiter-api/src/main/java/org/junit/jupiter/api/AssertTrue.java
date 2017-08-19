@@ -23,12 +23,6 @@ import java.util.function.Supplier;
  */
 class AssertTrue {
 
-	///CLOVER:OFF
-	private AssertTrue() {
-		/* no-op */
-	}
-	///CLOVER:ON
-
 	static void assertTrue(boolean condition) {
 		assertTrue(() -> condition, () -> null);
 	}

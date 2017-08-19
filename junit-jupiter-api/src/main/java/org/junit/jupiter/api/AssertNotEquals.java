@@ -25,12 +25,6 @@ import java.util.function.Supplier;
  */
 class AssertNotEquals {
 
-	///CLOVER:OFF
-	private AssertNotEquals() {
-		/* no-op */
-	}
-	///CLOVER:ON
-
 	static void assertNotEquals(Object unexpected, Object actual) {
 		assertNotEquals(unexpected, actual, () -> null);
 	}
