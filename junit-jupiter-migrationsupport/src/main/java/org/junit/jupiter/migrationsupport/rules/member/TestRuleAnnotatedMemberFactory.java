@@ -25,12 +25,6 @@ import org.junit.platform.commons.util.PreconditionViolationException;
 @API(Internal)
 public final class TestRuleAnnotatedMemberFactory {
 
-	///CLOVER:OFF
-	private TestRuleAnnotatedMemberFactory() {
-		/* no-op */
-	}
-	///CLOVER:ON
-
 	public static TestRuleAnnotatedMember from(Object testInstance, Member member) {
 		if (member instanceof Method) {
 			return new TestRuleAnnotatedMethod(testInstance, (Method) member);

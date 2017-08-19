@@ -556,7 +556,6 @@ class AssertionsAssertEqualsTests {
 	private static class EqualsThrowsExceptionClass {
 
 		@Override
-		@SuppressWarnings("EqualsHashCode") // purposely testing only that calling .equals() throws an exception
 		public boolean equals(Object obj) {
 			throw new NumberFormatException();
 		}

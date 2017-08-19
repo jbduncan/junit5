@@ -16,6 +16,7 @@ import static org.junit.platform.commons.meta.API.Usage.Experimental;
 import java.util.stream.Stream;
 
 import org.junit.platform.commons.meta.API;
+import org.junit.platform.commons.util.PreconditionViolationException;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestIdentifier;
@@ -98,7 +99,7 @@ public class SummaryGeneratingListener implements TestExecutionListener {
 				if (testIdentifier.isTest()) {
 					this.summary.testsSucceeded.incrementAndGet();
 				}
-				break;
+				return;
 			}
 
 			case ABORTED: {
@@ -108,7 +109,7 @@ public class SummaryGeneratingListener implements TestExecutionListener {
 				if (testIdentifier.isTest()) {
 					this.summary.testsAborted.incrementAndGet();
 				}
-				break;
+				return;
 			}
 
 			case FAILED: {
@@ -120,9 +121,11 @@ public class SummaryGeneratingListener implements TestExecutionListener {
 				}
 				testExecutionResult.getThrowable().ifPresent(
 					throwable -> this.summary.addFailure(testIdentifier, throwable));
-				break;
+				return;
 			}
 		}
+
+		throw new PreconditionViolationException("Unsupported execution status:" + testExecutionResult.getStatus());
 	}
 
 }

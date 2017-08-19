@@ -90,10 +90,10 @@ class DiscoveryFilterApplier {
 		Class<?> testClass = classTestDescriptor.getTestClass();
 
 		// @formatter:off
-		return classNameFilters.stream()
-				.map(filter -> filter.apply(testClass.getName()))
-				.noneMatch(FilterResult::excluded);
-		// @formatter:on
+        return classNameFilters.stream()
+                .map(filter -> filter.apply(testClass.getName()))
+                .noneMatch(FilterResult::excluded);
+        // @formatter:on
 	}
 
 }

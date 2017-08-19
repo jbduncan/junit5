@@ -40,12 +40,6 @@ import org.junit.platform.launcher.TestExecutionListener;
 @API(Experimental)
 public class LauncherFactory {
 
-	///CLOVER:OFF
-	private LauncherFactory() {
-		/* no-op */
-	}
-	///CLOVER:ON
-
 	/**
 	 * Factory method for creating a new {@link Launcher} using dynamically
 	 * detected test engines.

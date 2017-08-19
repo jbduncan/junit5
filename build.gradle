@@ -409,12 +409,6 @@ subprojects { subproj ->
 		}
 	}
 
-	// @sbrannen, @marcphillip:
-	// Each new release of error-prone brings with it new default checks.
-	// It seems possible to explicitly tell error-prone _which_ checks we want to enable and
-	// disable, similarly to how we specify "-Xlint" flags above.
-	// Do we want to customise exactly which checks error-prone should run? Or are we happy to just
-	// accept the default checks that each new release brings, explictly excluding the ones we dislike?
 	if (JavaVersion.current() == JavaVersion.VERSION_1_8 && subproj.name != 'documentation') {
 		apply plugin: "net.ltgt.errorprone"
 
@@ -427,66 +421,58 @@ subprojects { subproj ->
 			// Apply a select subset of them once they work properly with JDK 9.
 			//compileOnly('com.google.errorprone:error_prone_annotations:2.0.22')
 		}
+
+		def baseFlags = [
+			// enable experimental checks
+			'-XepAllDisabledChecksAsWarnings',
+
+			// generates too many false positives on constructors that call other constructors.
+			// TODO: once #939 is resolved, see if constructors can be refactored more easily
+			// to not call each other.
+			'-Xep:ConstructorLeaksThis:OFF',
+
+			// adds a lot of churn for not a lot of gain
+			'-Xep:InconsistentOverloads:OFF',
+
+			// TODO: turning this check on and applying @Immutable to immutable classes causes
+			// JDK 9 to fail to compile; investigate and consider turning it on when it no
+			// longer fails
+			'-Xep:Immutable:OFF',
+
+			// adds a lot of churn for not a lot of gain
+			'-Xep:MethodCanBeStatic:OFF',
+
+			// we declare redundant `throws <general-exception>, <more-specific-exception>` for
+			// maintainability
+			'-Xep:RedundantThrows:OFF',
+
+			// we target Java 8, not Android
+			'-Xep:StaticOrDefaultInterfaceMethod:OFF',
+
+			// we declare `throws <unchecked-exception>` for maintainability
+			'-Xep:ThrowsUncheckedException:OFF',
+
+			// we do not follow Google Java Style Guide
+			'-Xep:UngroupedOverloads:OFF',
+
+			// TODO: turning this check on and applying @Var to non-final variables causes
+			// JDK 9 to fail to compile; investigate and consider turning it on when it no
+			// longer fails
+			'-Xep:Var:OFF'
+		]
+		def testFlags = baseFlags + [
+			'-Xep:ClassCanBeStatic:OFF',
+			'-Xep:ConstantField:OFF',
+			'-Xep:ConstructorInvokesOverridable:OFF',
+			'-Xep:MultipleTopLevelClasses:OFF',
+			'-Xep:PrivateConstructorForUtilityClass:OFF'
+		]
+
 		compileJava {
-			options.compilerArgs += [
-				// enable experimental checks
-				'-XepAllDisabledChecksAsWarnings',
-
-				// generates too many false positives on constructors that call other constructors.
-				// TODO: once #939 is resolved, see if constructors can be refactored more easily
-				// to not call each other.
-				'-Xep:ConstructorLeaksThis:OFF',
-
-				// adds a lot of churn for not a lot of gain
-				'-Xep:InconsistentOverloads:OFF',
-
-				// TODO: turning this check on and applying @Immutable to immutable classes causes
-				// JDK 9 to fail to compile; investigate and consider turning it on when it no
-				// longer fails
-				'-Xep:Immutable:OFF',
-
-				// adds a lot of churn for not a lot of gain
-				'-Xep:MethodCanBeStatic:OFF',
-
-				// we target Java 8, not Android
-				'-Xep:StaticOrDefaultInterfaceMethod:OFF',
-
-				// we declare redundant `throws <general-exception>, <more-specific-exception>` for
-				// maintainability
-				'-Xep:RedundantThrows:OFF',
-
-				// we declare `throws <unchecked-exception>` for maintainability
-				'-Xep:ThrowsUncheckedException:OFF',
-
-				// we do not follow Google Java Style Guide
-				'-Xep:UngroupedOverloads:OFF',
-
-				// TODO: turning this check on and applying @Var to non-final variables causes
-				// JDK 9 to fail to compile; investigate and consider turning it on when it no
-				// longer fails
-				'-Xep:Var:OFF'
-			]
+			options.compilerArgs += baseFlags
 		}
 		compileTestJava {
-			options.compilerArgs += [
-				'-XepAllDisabledChecksAsWarnings',
-
-				'-Xep:ClassCanBeStatic:OFF',
-				'-Xep:ConstantField:OFF',
-				'-Xep:ConstructorInvokesOverridable:OFF',
-				'-Xep:ConstructorLeaksThis:OFF',
-				'-Xep:InconsistentOverloads:OFF',
-				'-Xep:Immutable:OFF',
-				'-Xep:MethodCanBeStatic:OFF',
-				'-Xep:MultipleTopLevelClasses:OFF',
-				'-Xep:PrivateConstructorForUtilityClass:OFF',
-				'-Xep:StaticOrDefaultInterfaceMethod:OFF',
-				'-Xep:ThrowsUncheckedException:OFF',
-				'-Xep:UngroupedOverloads:OFF',
-
-				// TODO: consider turning on when it no longer fails on JDK 9
-				'-Xep:Var:OFF'
-			]
+			options.compilerArgs += testFlags
 		}
 	}
 
