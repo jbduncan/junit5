@@ -24,6 +24,9 @@ import java.util.function.Supplier;
  */
 class AssertNull {
 
+	private AssertNull() {
+	}
+
 	static void assertNull(Object actual) {
 		assertNull(actual, () -> null);
 	}

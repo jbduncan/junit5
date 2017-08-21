@@ -40,6 +40,9 @@ import org.junit.platform.launcher.TestExecutionListener;
 @API(Experimental)
 public class LauncherFactory {
 
+	private LauncherFactory() {
+	}
+
 	/**
 	 * Factory method for creating a new {@link Launcher} using dynamically
 	 * detected test engines.

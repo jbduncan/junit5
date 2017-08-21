@@ -24,6 +24,9 @@ import java.util.function.Supplier;
  */
 class AssertSame {
 
+	private AssertSame() {
+	}
+
 	static void assertSame(Object expected, Object actual) {
 		assertSame(expected, actual, () -> null);
 	}

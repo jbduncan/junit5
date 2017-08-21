@@ -32,6 +32,9 @@ import org.junit.platform.commons.util.AnnotationUtils;
 @API(Internal)
 public final class AnnotationConsumerInitializer {
 
+	private AnnotationConsumerInitializer() {
+	}
+
 	// @formatter:off
 	private static final Predicate<Method> isAnnotationConsumerAcceptMethod = method ->
 			method.getName().equals("accept")

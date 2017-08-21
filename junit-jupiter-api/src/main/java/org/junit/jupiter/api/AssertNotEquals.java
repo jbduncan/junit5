@@ -25,6 +25,9 @@ import java.util.function.Supplier;
  */
 class AssertNotEquals {
 
+	private AssertNotEquals() {
+	}
+
 	static void assertNotEquals(Object unexpected, Object actual) {
 		assertNotEquals(unexpected, actual, () -> null);
 	}

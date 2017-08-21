@@ -28,6 +28,9 @@ import org.opentest4j.AssertionFailedError;
  */
 class AssertThrows {
 
+	private AssertThrows() {
+	}
+
 	static <T extends Throwable> T assertThrows(Class<T> expectedType, Executable executable) {
 		return assertThrows(expectedType, executable, () -> null);
 	}

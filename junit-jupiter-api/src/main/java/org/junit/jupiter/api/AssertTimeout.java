@@ -36,6 +36,9 @@ import org.opentest4j.AssertionFailedError;
  */
 class AssertTimeout {
 
+	private AssertTimeout() {
+	}
+
 	static void assertTimeout(Duration timeout, Executable executable) {
 		assertTimeout(timeout, executable, () -> null);
 	}

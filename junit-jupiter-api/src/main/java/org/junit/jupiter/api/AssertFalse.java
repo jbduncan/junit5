@@ -23,6 +23,9 @@ import java.util.function.Supplier;
  */
 class AssertFalse {
 
+	private AssertFalse() {
+	}
+
 	static void assertFalse(boolean condition) {
 		assertFalse(() -> condition, () -> null);
 	}

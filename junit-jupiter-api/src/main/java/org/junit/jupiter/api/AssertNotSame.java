@@ -24,6 +24,9 @@ import java.util.function.Supplier;
  */
 class AssertNotSame {
 
+	private AssertNotSame() {
+	}
+
 	static void assertNotSame(Object unexpected, Object actual) {
 		assertNotSame(unexpected, actual, () -> null);
 	}

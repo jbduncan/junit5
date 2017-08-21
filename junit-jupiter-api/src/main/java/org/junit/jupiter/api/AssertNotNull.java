@@ -23,6 +23,9 @@ import java.util.function.Supplier;
  */
 class AssertNotNull {
 
+	private AssertNotNull() {
+	}
+
 	static void assertNotNull(Object actual) {
 		assertNotNull(actual, () -> null);
 	}

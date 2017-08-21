@@ -28,6 +28,9 @@ import java.util.regex.PatternSyntaxException;
  */
 class AssertLinesMatch {
 
+	private AssertLinesMatch() {
+	}
+
 	private final static int MAX_SNIPPET_LENGTH = 21;
 
 	static void assertLinesMatch(List<String> expectedLines, List<String> actualLines) {
